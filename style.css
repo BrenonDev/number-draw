@@ -26,4 +26,8 @@
     --gradient-border: linear-gradient(90deg, var(--accent-green) 0%, var(--accent-lime) 14.84%, var(--accent-red) 32.15%, var(--accent-pink) 65.79%, var(--accent-blue) 84.58%);
     --gradient-background: linear-gradient(90deg, var(--accent-pink) 0%, var(--accent-blue) 98.93%);
     --gradient-content: linear-gradient(90deg, var(--content-secondary) 0%, var(--background-gray) 100%);
+
+    ff-sora: 'Sora', sans-serif;
+    ff-roboto: 'Roboto Flex', sans-serif;
+    ff-roboto-mono: 'Roboto Mono', monospace;
 }
