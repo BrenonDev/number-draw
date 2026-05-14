@@ -43,3 +43,8 @@
     --label-md: 700 1.25rem/1.5 var(--ff-roboto);
     --label-sm: 700 1rem/1.5 var(--ff-roboto);
 }
+
+body {
+    font: var(--p-md);
+    color: var(--content-primary);
+}
