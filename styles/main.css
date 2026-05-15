@@ -3,9 +3,9 @@ body {
     background-image: url(../assets/background.png);
     
     & .container {
+        background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 100%);
         width: 100%;
         min-height: 100vh;
-        background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 100%);
         display: flex;
         flex-direction: column;
         padding: 2.75rem 2.25rem;
@@ -15,10 +15,14 @@ body {
             display: flex;
             gap: .75rem;
             align-items: center;
-            font: var(--logo);
             
             .logo-image {
                 width: 2.375rem;
+            }
+            
+            span {
+                font: var(--logo);
+                color: var(--content-primary);
             }
         }
 
@@ -26,13 +30,20 @@ body {
             display: flex;
             flex-direction: column;
             gap: .5rem;
+            background-color: var(--gradient-content);
             
             p {
                 font: var(--overline);
+                background: var(--gradient-content);
+                background-clip: text;
+                -webkit-background-clip: text;
+                color: transparent;
+                -webkit-text-fill-color: transparent;
             }
             
             h1 {
                 font: var(--display-md);
+                color: var(--content-primary);
             }
         }
 
