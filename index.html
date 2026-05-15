@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="assets/logo.svg" alt="">
+            <img class="logo-image" src="assets/logo.svg" alt="">
             <span>NUMBERS</span>
         </div>
         <header>
@@ -21,22 +21,33 @@
             <h1>SORTEADOR DE NÚMEROS</h1>
         </header>
         <main>
-            <div class="title-form">
-                <p>QUERO SORTEAR</p>
-                <P>Defina o intervalo e a quantidade de números, clique em "Sortear" e veja os resultados na tela. É rápido e fácil!</P>
-            </div>
             <form action="">
-                <label for="quantity">Quantidade</label>
-                <input type="number" id="quantity" placeholder="Quantidade">
+                <div class="title-form">
+                    <h2>QUERO SORTEAR</h2>
+                    <p>Defina o intervalo e a quantidade de números, clique em "Sortear" e veja os resultados na tela. É rápido e fácil!</p>
+                </div>
 
-                <label for="min">DE</label>
-                <input type="number" id="min" placeholder="Mínimo">
+                <div class="inputs">
+                    <div class="wrapper-input">
+                        <label for="quantity">NÚMEROS</label>
+                        <input type="number" id="quantity" placeholder="Quantidade">
+                    </div>
+    
+                    <div class="wrapper-input">
+                        <label for="min">DE</label>
+                        <input type="number" id="min" placeholder="Mínimo">
+                    </div>
+    
+                    <div class="wrapper-input">
+                        <label for="max">A</label>
+                        <input type="number" id="max" placeholder="Máximo">
+                    </div>
 
-                <label for="max">A</label>
-                <input type="number" id="max" placeholder="Máximo">
-
-                <label for="unique">Não repetir número</label>
-                <input type="checkbox" name="" id="unique">
+                    <div class="wrapper-checkbox">
+                        <input type="checkbox" name="" id="unique">
+                        <label for="unique">Não repetir número</label>
+                    </div>
+                </div>
 
                 <button type="submit">Sortear</button>
             </form>
@@ -47,8 +58,10 @@
                     <div class="icon-question">
                         <img src="assets/icon-3.svg" alt="">
                     </div>
-                    <p>Como funciona o sorteador de números?</p>
-                    <p>O sorteador utiliza um algoritmo de geração aleatória para criar números dentro do intervalo especificado pelo usuário.</p>
+                    <div class="text-question">
+                        <p>Como funciona o sorteador de números?</p>
+                        <p>O sorteador utiliza um algoritmo de geração aleatória para criar números dentro do intervalo especificado pelo usuário.</p>
+                    </div>
                 </div>
                 <div class="question">
                     <div class="icon-question">

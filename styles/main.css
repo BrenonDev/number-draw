@@ -1,12 +1,118 @@
 body {
     background-color: var(--background-primary);
     background-image: url(../assets/background.png);
+    
+    & .container {
+        width: 100%;
+        min-height: 100vh;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 100%);
+        display: flex;
+        flex-direction: column;
+        padding: 2.75rem 2.25rem;
+        gap: 3rem;
+        
+        .logo {
+            display: flex;
+            gap: .75rem;
+            align-items: center;
+            font: var(--logo);
+            
+            .logo-image {
+                width: 2.375rem;
+            }
+        }
+
+        header {
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+            
+            p {
+                font: var(--overline);
+            }
+            
+            h1 {
+                font: var(--display-md);
+            }
+        }
+
+        main {
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 2.5rem;
+    
+                .title-form {
+                    display: flex;
+                    flex-direction: column;
+                    gap: .5rem;
+    
+                    h2 {
+                        font: var(--label-md);
+                        
+                    }
+                    
+                    p {
+                        font: var(--p-sm);
+                        
+                    }
+                }
+
+                .inputs {
+                    display: flex;
+                    gap: 1.25rem .75rem;
+                    flex-wrap: wrap;
+
+                    .wrapper-input {
+                        display: flex;
+                        flex-direction: column;
+                        gap: .5rem;
+                        width: 5.375rem;
+
+                        label {
+                            text-align: center;
+                        }
+                    }
+
+                    .wrapper-checkbox {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        
+        footer {
+            margin-top: auto;
+
+            .questions {
+                display: flex;
+                flex-direction: column;
+                gap: 2.25rem;
+
+                .question {
+                    display: flex;
+                    flex-direction: row;
+                    gap: .5rem;
+
+                    .text-question {
+                        display: flex;
+                        flex-direction: column;
+
+                        p:first-child {
+                            font: var(--p-md);
+                            color: var(--content-brand);
+                        }
+                        p:last-child {
+                            font: var(--p-sm);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
-.container {
-    width: 100%;
-    min-height: 100vh;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.6) 100%);
-    display: flex;
-    flex-direction: column;
-}
+
+
+
+

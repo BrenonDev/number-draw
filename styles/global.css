@@ -37,6 +37,8 @@
 
     --overline: 700 1rem/1.5 var(--ff-roboto-mono);
 
+    --logo: 800 1.5rem/1.3 var(--ff-sora);
+
     --p-lg: 400 1.25rem/1.5 var(--ff-roboto);
     --p-md: 400 1rem/1.5 var(--ff-roboto);
     --p-sm: 400 0.875rem/1.5 var(--ff-roboto);
