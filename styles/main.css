@@ -56,16 +56,16 @@ body {
                 .title-form {
                     display: flex;
                     flex-direction: column;
-                    gap: .5rem;
+                    gap: .125rem;
     
                     h2 {
                         font: var(--label-md);
-                        
+                        color: var(--content-primary);
                     }
                     
                     p {
                         font: var(--p-sm);
-                        
+                        color: var(--content-tertiary);
                     }
                 }
 
