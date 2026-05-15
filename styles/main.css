@@ -103,8 +103,54 @@ body {
                         gap: .5rem;
 
                         input {
-                            width: 1.25rem;
-                            height: 1.25rem;
+                            --switch-width: 1.875rem;
+                            --switch-height: 1.25rem;
+                            --circle-size: .875rem;
+                            --spacing: .1875rem;
+
+                            width: var(--switch-width);
+                            height: var(--switch-height);
+                            border-radius: 1rem;
+                            background: var(--content-tertiary);
+                            appearance: none;
+                            -webkit-appearance: none;
+                            position: relative;
+                            flex-shrink: 0;
+                            transition: background 2.8s ease;
+                            cursor: pointer;
+
+                            &::before {
+                                content: "";
+                                position: absolute;
+                                inset: 0;
+                                background: var(--gradient-background);
+                                opacity: 0;
+                                border-radius: 1rem;
+                                transition: opacity 0.3s ease;
+                            }
+
+                            &::after {
+                                content: "";
+                                width: var(--circle-size);
+                                height: var(--circle-size);
+                                background-color: var(--content-primary);
+                                border-radius: 50%;
+                                position: absolute;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                left: var(--spacing);
+                                transition: left 0.3s ease;
+                            }
+
+                            &:checked {
+                                &::before {
+                                    opacity: 1;
+                                }
+
+                                &::after {
+                                    left: calc(100% - var(--circle-size) - var(--spacing));
+                                }
+                            }
                         }
 
                         label {
