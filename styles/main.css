@@ -98,15 +98,17 @@ body {
                         flex-direction: column;
                         gap: .5rem;
                         width: 5.375rem;
+                        cursor: pointer;
 
                         label {
                             font: var(--label-sm);
                             color: var(--content-secondary);
                             text-align: center;
                             transition: color .3s ease;
+                            cursor: pointer;
                         }
                         
-                        .border-gradient#input {
+                        .border-gradient.input {
                             width: 5.375rem;
                             height: 3.25rem;
                             background: var(--gradient-border);
@@ -140,7 +142,6 @@ body {
                             
                         }
 
-
                         &:hover, &:focus-visible, &:focus-within, &:active {
                             label {
                                 color: var(--background-brand);
@@ -152,6 +153,7 @@ body {
                         width: 100%;
                         display: flex;
                         gap: .5rem;
+                        cursor: pointer;
 
                         input {
                             --switch-width: 1.875rem;
@@ -208,6 +210,8 @@ body {
                             font: var(--p-sm);
                             color: var(--content-primary);
                             transition: color .3s ease;
+                            width: 100%;
+                            cursor: pointer;
                         }
 
                         &:hover {
@@ -218,7 +222,7 @@ body {
                     }
                 }
 
-                .border-gradient#button {
+                .border-gradient.button {
                     width: 100%;
                     height: 3.5rem;
                     background: var(--gradient-border);
@@ -290,7 +294,7 @@ body {
         }
     }
 
-    @media (min-width: 850px) {
+    @media (min-width: 848px) {
         .container {
             grid-template-areas: 
             "logo logo"
