@@ -1,19 +1,35 @@
 body {
     background-color: var(--background-primary);
     background-image: url(../assets/background.png);
+
+    &::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 100%);
+    }
     
     & .container {
-        background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 100%);
         width: 100%;
+        max-width: 64rem;
         min-height: 100vh;
-        display: flex;
-        flex-direction: column;
+        margin-inline: auto;
         padding: 2.75rem 2.25rem;
         gap: 3rem;
+        display: grid;
+        grid-template-areas: 
+            "logo"
+            "header"
+            "main"
+            "footer"
+        ;
         
         .logo {
+            grid-area: logo;
             display: flex;
             gap: .75rem;
+            justify-content: center;
             align-items: center;
             
             .logo-image {
@@ -27,6 +43,7 @@ body {
         }
 
         header {
+            grid-area: header;
             display: flex;
             flex-direction: column;
             gap: .5rem;
@@ -48,6 +65,8 @@ body {
         }
 
         main {
+            grid-area: main;
+
             form {
                 display: flex;
                 flex-direction: column;
@@ -115,7 +134,7 @@ body {
                                 
                                 input {
                                     border-radius: .5rem;
-                                    transition: border-radius .15s ease;
+                                    transition: border-radius .3s ease;
                                 }
                             }
                             
@@ -233,7 +252,7 @@ body {
                         button {
                             background: var(--background-secondary);
                             border-radius: .5rem;
-                            transition: background .3s ease, border-radius .15s ease;
+                            transition: background .3s ease, border-radius .3s ease;
                         }
                     }
                 }
@@ -241,7 +260,7 @@ body {
         }
         
         footer {
-            margin-top: auto;
+            grid-area: footer;
 
             .questions {
                 display: flex;
@@ -269,5 +288,30 @@ body {
                 }
             }
         }
+    }
+
+    @media (min-width: 850px) {
+        .container {
+            grid-template-areas: 
+            "logo logo"
+            "header main"
+            "footer main";
+            column-gap: 7rem;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 3rem auto auto;
+
+            .logo {
+                justify-content: flex-start;
+            }
+
+            header {
+                align-self: flex-end;
+            }
+
+            main {
+                align-self: center;
+            }
+        }
+        
     }
 }
