@@ -130,9 +130,19 @@ body {
                                 transition: border-radius .3s ease .1s;
                             }
 
-                            &:hover, &:focus-visible, &:focus-within, &:active {
+                            &:hover {
                                 border: .0625rem solid transparent;
                                 transition: border .3s ease;
+                                
+                                input {
+                                    border-radius: .5rem;
+                                    transition: border-radius .3s ease;
+                                }
+                            }
+                            
+                            &:focus-visible, &:focus-within, &:active {
+                                border: .125rem solid transparent;
+                                transition: border .1s ease;
                                 
                                 input {
                                     border-radius: .5rem;
