@@ -1,17 +1,21 @@
-const inputs = document.querySelectorAll("input");
+const inputs = document.querySelectorAll("input[type='text']");
 const quantity = document.querySelector("input#quantity");
 const min = document.querySelector("input#quantity");
 const max = document.querySelector("input#quantity");
-const unique = document.
+const unique = document.querySelector("input#unique");
 
-document.addEventListener("input", (event) => {
+console.log(inputs);
 
-})
+// Remove todos os caracteres dos inputs que não são números
+inputs.forEach(input => {
+    input.addEventListener("input", (event) => {
+        input.value = input.value.replace(/\D/g, "");
+    })
+});
 
+// Função de sorteio
 function random(quantity, min, max) {
     let numbers = [];
-
-
 
     if (quantity > max - min + 1) {
         console.log("Esta quantidade não é possível gerar sem repetição dos números");
@@ -32,9 +36,8 @@ function random(quantity, min, max) {
     }
 
     return numbers
-
 }
 
-let n = random(10, 1, 10);
+// let n = random(10, 1, 10);
 
-console.log(n);
+// console.log(n);
