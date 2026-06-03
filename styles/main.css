@@ -127,7 +127,7 @@ body {
                                 outline: none;
                                 border: none;
                                 border-radius: .3rem;
-                                transition: border-radius .3s ease .1s;
+                                transition: background .3s ease, border-radius .3s ease .1s;
                             }
 
                             &:hover {
@@ -135,18 +135,20 @@ body {
                                 transition: border .3s ease;
                                 
                                 input {
+                                    background: var(--background-tertiary);
                                     border-radius: .5rem;
-                                    transition: border-radius .3s ease;
+                                    transition: background .3s ease, border-radius .3s ease;
                                 }
                             }
-                            
+
                             &:focus-visible, &:focus-within, &:active {
                                 border: .125rem solid transparent;
                                 transition: border .1s ease;
                                 
                                 input {
+                                    background: var(--background-tertiary);
                                     border-radius: .5rem;
-                                    transition: border-radius .3s ease;
+                                    transition: background .3s ease, border-radius .3s ease;
                                 }
                             }
                             
@@ -179,7 +181,6 @@ body {
                             -webkit-appearance: none;
                             position: relative;
                             flex-shrink: 0;
-                            transition: background 2.8s ease;
                             cursor: pointer;
 
                             &::before {
@@ -248,6 +249,7 @@ body {
                         align-items: center;
                         justify-content: center;
                         gap: .5rem;
+                        cursor: pointer;
                         outline: none;
                         border: none;
                         border-radius: .3rem;
