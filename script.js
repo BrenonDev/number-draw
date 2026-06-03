@@ -1,10 +1,17 @@
+const form = document.querySelector("form");
 const inputs = document.querySelectorAll("input[type='text']");
 const quantity = document.querySelector("input#quantity");
 const min = document.querySelector("input#quantity");
 const max = document.querySelector("input#quantity");
 const unique = document.querySelector("input#unique");
+const button = document.querySelector("button[type='submit']")
 
 console.log(inputs);
+
+// Previne o comportamento padrão do formulário
+form.onsubmit = (event) => {
+    event.preventDefault();
+}
 
 // Remove todos os caracteres dos inputs que não são números
 inputs.forEach(input => {
@@ -28,7 +35,7 @@ function random(quantity, min, max) {
         console.log(numbers.includes(number));
         
         if (numbers.includes(number)) {
-            i--
+            i--;
         } else {
             numbers.push(number);
             
@@ -37,6 +44,8 @@ function random(quantity, min, max) {
 
     return numbers
 }
+// button.preven
+// button.addEventListener("click")
 
 // let n = random(10, 1, 10);
 
