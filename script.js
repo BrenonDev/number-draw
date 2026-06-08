@@ -1,12 +1,10 @@
 const form = document.querySelector("form");
 const inputs = document.querySelectorAll("input[type='text']");
 const quantity = document.querySelector("input#quantity");
-const min = document.querySelector("input#quantity");
-const max = document.querySelector("input#quantity");
+const min = document.querySelector("input#min");
+const max = document.querySelector("input#max");
 const unique = document.querySelector("input#unique");
 const button = document.querySelector("button[type='submit']")
-
-console.log(inputs);
 
 // Previne o comportamento padrão do formulário
 form.onsubmit = (event) => {
@@ -22,17 +20,24 @@ inputs.forEach(input => {
 
 // Função de sorteio
 function random(quantity, min, max) {
+
+    // Converte todos os valores para número
+    quantity = Number(quantity);
+    min = Number(min);
+    max = Number(max);
+
+    // Cria a vetor de números
     let numbers = [];
 
+    // Verifica se a quantidade de números a ser gerada não ultrapassa a quantidade possível com base no intervalo
     if (quantity > max - min + 1) {
         console.log("Esta quantidade não é possível gerar sem repetição dos números");
         return
     }
 
+    // Gera os números aleatoriamente
     for (let i = 0; i < quantity; i++) {
         let number = Math.floor(Math.random() * (max - min + 1)) + min;
-
-        console.log(numbers.includes(number));
         
         if (numbers.includes(number)) {
             i--;
@@ -42,11 +47,12 @@ function random(quantity, min, max) {
         }
     }
 
-    return numbers
+    console.log(numbers);
+    
+    return numbers;
 }
-// button.preven
-// button.addEventListener("click")
 
-// let n = random(10, 1, 10);
-
-// console.log(n);
+// Chamada da função no click do usuário
+button.addEventListener("click", () => {
+    random(quantity.value, min.value, max.value).value;
+})
