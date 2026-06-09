@@ -29,23 +29,34 @@ function random(quantity, min, max) {
     // Cria a vetor de números
     let numbers = [];
 
-    // Verifica se a quantidade de números a ser gerada não ultrapassa a quantidade possível com base no intervalo
-    if (quantity > max - min + 1) {
-        console.log("Esta quantidade não é possível gerar sem repetição dos números");
-        return
+    // Verifica se a opção para não repetir está ativada, se não ignora a etapa de não permitir números duplicados
+    if (unique.checked) {
+        
+        // Verifica se a quantidade de números a ser gerada não ultrapassa a quantidade possível com base no intervalo
+        if (quantity > max - min + 1) {
+            console.log("Esta quantidade não é possível gerar sem repetição dos números");
+            return
+        }
+        // Gera os números aleatoriamente
+        for (let i = 0; i < quantity; i++) {
+            let number = Math.floor(Math.random() * (max - min + 1)) + min;
+            
+            if (numbers.includes(number)) {
+                i--;
+            } else {
+                numbers.push(number);
+            }
+        }
+    } else {
+        // Gera os números aleatoriamente
+        for (let i = 0; i < quantity; i++) {
+            let number = Math.floor(Math.random() * (max - min + 1)) + min;
+
+            numbers.push(number);
+        }
+
     }
 
-    // Gera os números aleatoriamente
-    for (let i = 0; i < quantity; i++) {
-        let number = Math.floor(Math.random() * (max - min + 1)) + min;
-        
-        if (numbers.includes(number)) {
-            i--;
-        } else {
-            numbers.push(number);
-            
-        }
-    }
 
     console.log(numbers);
     
@@ -58,6 +69,5 @@ button.addEventListener("click", () => {
 
     if (numbers) {
         console.log(numbers);
-
     }
 })
