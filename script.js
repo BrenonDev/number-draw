@@ -54,5 +54,10 @@ function random(quantity, min, max) {
 
 // Chamada da função no click do usuário
 button.addEventListener("click", () => {
-    random(quantity.value, min.value, max.value).value;
+    const numbers = random(quantity.value, min.value, max.value);
+
+    if (numbers) {
+        console.log(numbers);
+
+    }
 })
