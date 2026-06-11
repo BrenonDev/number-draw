@@ -4,7 +4,8 @@ const quantity = document.querySelector("input#quantity");
 const min = document.querySelector("input#min");
 const max = document.querySelector("input#max");
 const unique = document.querySelector("input#unique");
-const button = document.querySelector("button[type='submit']")
+const button = document.querySelector("button[type='submit']");
+const result = document.querySelector(".result");
 
 // Previne o comportamento padrão do formulário
 form.onsubmit = (event) => {
@@ -18,7 +19,21 @@ inputs.forEach(input => {
     })
 });
 
-// Função de sorteio
+// Função para criar os itens dos números sorteados
+function createItems(numbers) {
+    numbers.forEach(number => {
+        const item = document.createElement("div");
+        const text = document.createElement("span");
+        
+        item.classList.add("item");
+        text.textContent = number;
+        
+        item.append(text);
+        result.append(item);
+    });
+}
+
+// Função para sortear os números com base na quantidade, mínimo e máximo definidos pelo usuário
 function random(quantity, min, max) {
 
     // Converte todos os valores para número
@@ -56,9 +71,23 @@ function random(quantity, min, max) {
         }
 
     }
-    
-    return numbers;
+
+    createItems(numbers);
+
+    return;
 }
+
+// Função para diminuir o tamanho da font dos números sorteados quando mais de 2 dígitos
+// function fitNumberFontSize(element, maxFontSize = 4, minFontSize = 0.625) {
+//     const text = element.textContent.trim();
+//     const digits = text.lenght;
+
+//     if (digits <= 2) {
+//         return
+//     }
+
+//     const newSize = maxFontSize * (2 / digits);
+// }
 
 // Chamada da função no click do usuário
 button.addEventListener("click", () => {
