@@ -56,9 +56,6 @@ function random(quantity, min, max) {
         }
 
     }
-
-
-    console.log(numbers);
     
     return numbers;
 }
