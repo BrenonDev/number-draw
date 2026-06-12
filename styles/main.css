@@ -98,6 +98,8 @@ body {
                     gap: 1.25rem;
                     flex-wrap: wrap;
                     overflow-y: auto;
+                    scrollbar-width: thin;
+                    scrollbar-color: var(--content-brand) var(--scroll-barbackground);
                     
                     .item {
                         display: flex;
