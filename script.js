@@ -76,51 +76,64 @@ function random(quantity, min, max) {
 // Função de animação dos números sorteados
 function createAnimatedItem(text, container) {
     const item = document.createElement("div");
+    const card = document.createElement("div");
     const content = document.createElement("span");
 
     item.classList.add("item");
+    card.classList.add("item-card");
+
     content.textContent = text;
 
-    item.appendChild(content)
-    container.appendChild(item)
+    card.appendChild(content);
+    item.appendChild(card);
+    container.appendChild(item);
 
-    item.animate(
+    card.animate(
         [
             {
                 opacity: 0,
-                transform: "scale(0.75)"
+                transform: "scale(0.75)",
             },
             {
                 opacity: 1,
-                transform: "scale(1)"
+                transform: "scale(1)",
             },
+            {},
+            {},
             {},
             {},
             {}
         ],
         {
-            duration: 3000,
+            duration: 3500,
             easing: "ease",
-            fill: "forwards"
+            fill: "forwards",
         }
     );
 
-    item.animate(
+    card.animate(
         [
             {},
             {},
             {
-                transform: "rotate(0deg)"
+                transform: "rotate(0deg)",
             },
             {},
             {
-                transform: "rotate(180deg)"
+                transform: "rotate(180deg)",
+            },
+            {
+                backgroundColor: "var(--content-brand)",
+            },
+            {
+                transform: "rotate(180deg)",
+                backgroundColor: "transparent",
             }
         ],
         {
-            duration: 3000,
+            duration: 3500,
             easing: "linear",
-            fill: "forwards"
+            fill: "forwards",
         }
     );
 
@@ -136,12 +149,18 @@ function createAnimatedItem(text, container) {
             },
             {
                 opacity: 1,
+            },
+            {
+                color: "initial",
+            },
+            {
+                color: "var(--content-brand)",
             }
         ],
         {
-            duration: 3000,
+            duration: 3500,
             easing: "linear",
-            fill: "forwards"
+            fill: "forwards",
         }
     )
     content.animate(
@@ -149,20 +168,28 @@ function createAnimatedItem(text, container) {
             {},
             {},
             {
-                transform: "rotate(0deg)"
+                transform: "rotate(0deg)",
             },
             {},
             {
-                transform: "rotate(-180deg)"
+                transform: "rotate(-180deg)",
+            },
+            {},
+            {
+                transform: "rotate(-180deg)",
             }
         ],
         {
-            duration: 3000,
+            duration: 3500,
             easing: "linear",
             fill: "forwards"
         }
     )
 }
+
+
+
+
 
 // Chamada da função no click do usuário
 button.addEventListener("click", () => {
@@ -175,6 +202,6 @@ button.addEventListener("click", () => {
     numbers.forEach((item, index) => {
         setTimeout(() => {
             createAnimatedItem(item, result);
-        }, index * 3500);
+        }, index * 4000);
     });
 })

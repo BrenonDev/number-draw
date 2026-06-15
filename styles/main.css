@@ -92,10 +92,10 @@ body {
 
                 .result {
                     width: 100%;
-                    /* min-height: 6.25rem; */
                     max-height: 16rem;
-                    padding: .5rem;
+                    padding: .6rem;
                     display: flex;
+                    justify-content: center;
                     gap: 1.25rem;
                     flex-wrap: wrap;
                     overflow-y: auto;
@@ -103,6 +103,17 @@ body {
                     scrollbar-color: var(--content-brand) var(--scroll-barbackground);
                     
                     .item {
+                        min-width: 6.25rem;
+                        width: max-content;
+                        min-height: 6.25rem;
+                        padding: .5rem;
+                        aspect-ratio: 1 / 1;
+                        overflow: hidden;
+                        overflow: clip;
+                        flex-shrink: 0;
+                    }
+
+                    .item-card {
                         display: flex;
                         justify-content: center;
                         align-items: center;
@@ -114,10 +125,14 @@ body {
                         padding-inline: .75rem;
                         border-radius: 1.75rem;
                         text-align: center;
-                        
+                        transform-origin: center;
+                        will-change: transform, opacity;
+
                         span {
                             font: var(--result);
                             color: var(--color-inverse);
+                            transform-origin: center;
+                            will-change: transform, opacity;
                         }
                     }
                 }
