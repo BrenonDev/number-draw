@@ -4,6 +4,7 @@ const quantity = document.querySelector("input#quantity");
 const min = document.querySelector("input#min");
 const max = document.querySelector("input#max");
 const unique = document.querySelector("input#unique");
+const ascending = document.querySelector("input#ascending");
 const button = document.querySelector("button[type='submit']");
 const result = document.querySelector(".result");
 
@@ -57,6 +58,10 @@ function random(quantity, min, max) {
             numbers.push(number);
         }
 
+    }
+
+    if (ascending.checked) {
+        numbers.sort((a, b) => a - b);
     }
 
     return numbers;
