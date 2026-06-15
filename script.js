@@ -16,6 +16,7 @@ form.onsubmit = (event) => {
 inputs.forEach(input => {
     input.addEventListener("input", (event) => {
         input.value = input.value.replace(/\D/g, "");
+        fitInputFontSize(input);
     })
 });
 
@@ -35,7 +36,7 @@ function random(quantity, min, max) {
         
         // Verifica se a quantidade de números a ser gerada não ultrapassa a quantidade possível com base no intervalo
         if (quantity > max - min + 1) {
-            console.log("Esta quantidade não é possível gerar sem repetição dos números");
+            alert("Não é possível sortear essa quantidade sem repetir números. Reduza a quantidade ou aumente o intervalo.");
             return
         }
         // Gera os números aleatoriamente
@@ -62,16 +63,36 @@ function random(quantity, min, max) {
 }
 
 // Função para diminuir o tamanho da font dos números sorteados quando mais de 2 dígitos
-// function fitNumberFontSize(element, maxFontSize = 4, minFontSize = 0.625) {
-//     const text = element.textContent.trim();
-//     const digits = text.lenght;
+function fitNumberFontSize(element, maxFontSize = 4, minFontSize = 0.625, maxDigits = 2) {
+    const text = element.textContent.trim();
+    const digits = text.length;
 
-//     if (digits <= 2) {
-//         return
-//     }
+    if (digits <= maxDigits) {
+        element.style.fontSize = `${maxFontSize}rem`;
+        return;
+    }
 
-//     const newSize = maxFontSize * (2 / digits);
-// }
+    const newSize = maxFontSize * (maxDigits / digits);
+    const finalSize = Math.max(newSize, minFontSize);
+
+    element.style.fontSize = `${finalSize}rem`;
+}
+
+// Função para diminuir o tamanho da font dos números dos inputs quando mais de 3 dígitos
+function fitInputFontSize(element, maxFontSize = 2, minFontSize = 0.625, maxDigits = 3) {
+    const value = element.value.trim();
+    const digits = value.length;
+
+    if (digits <= maxDigits) {
+        element.style.fontSize = `${maxFontSize}rem`;
+        return;
+    }
+
+    const newSize = maxFontSize * (maxDigits / digits);
+    const finalSize = Math.max(newSize, minFontSize);
+
+    element.style.fontSize = `${finalSize}rem`;
+}
 
 // Função de animação dos números sorteados
 function createAnimatedItem(text, container) {
@@ -83,6 +104,8 @@ function createAnimatedItem(text, container) {
     card.classList.add("item-card");
 
     content.textContent = text;
+
+    fitNumberFontSize(content);
 
     card.appendChild(content);
     item.appendChild(card);
@@ -210,9 +233,11 @@ function animateLayoutChange(container, callback) {
 button.addEventListener("click", () => {
     const numbers = random(quantity.value, min.value, max.value);
 
-    if (numbers) {
-        console.log(numbers);
-    }
+    if (!numbers) {
+        return
+    };
+
+    console.log(numbers);
 
     numbers.forEach((item, index) => {
         setTimeout(() => {
