@@ -92,8 +92,9 @@ body {
 
                 .result {
                     width: 100%;
-                    min-height: 6.25rem;
+                    /* min-height: 6.25rem; */
                     max-height: 16rem;
+                    padding: .5rem;
                     display: flex;
                     gap: 1.25rem;
                     flex-wrap: wrap;

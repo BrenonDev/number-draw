@@ -19,20 +19,6 @@ inputs.forEach(input => {
     })
 });
 
-// Função para criar os itens dos números sorteados
-function createItems(numbers) {
-    numbers.forEach(number => {
-        const item = document.createElement("div");
-        const text = document.createElement("span");
-        
-        item.classList.add("item");
-        text.textContent = number;
-        
-        item.append(text);
-        result.append(item);
-    });
-}
-
 // Função para sortear os números com base na quantidade, mínimo e máximo definidos pelo usuário
 function random(quantity, min, max) {
 
@@ -72,9 +58,7 @@ function random(quantity, min, max) {
 
     }
 
-    createItems(numbers);
-
-    return;
+    return numbers;
 }
 
 // Função para diminuir o tamanho da font dos números sorteados quando mais de 2 dígitos
@@ -89,6 +73,97 @@ function random(quantity, min, max) {
 //     const newSize = maxFontSize * (2 / digits);
 // }
 
+// Função de animação dos números sorteados
+function createAnimatedItem(text, container) {
+    const item = document.createElement("div");
+    const content = document.createElement("span");
+
+    item.classList.add("item");
+    content.textContent = text;
+
+    item.appendChild(content)
+    container.appendChild(item)
+
+    item.animate(
+        [
+            {
+                opacity: 0,
+                transform: "scale(0.75)"
+            },
+            {
+                opacity: 1,
+                transform: "scale(1)"
+            },
+            {},
+            {},
+            {}
+        ],
+        {
+            duration: 3000,
+            easing: "ease",
+            fill: "forwards"
+        }
+    );
+
+    item.animate(
+        [
+            {},
+            {},
+            {
+                transform: "rotate(0deg)"
+            },
+            {},
+            {
+                transform: "rotate(180deg)"
+            }
+        ],
+        {
+            duration: 3000,
+            easing: "linear",
+            fill: "forwards"
+        }
+    );
+
+    content.animate(
+        [
+            {
+                opacity: 0,
+            },
+            {},
+            {},
+            {
+                opacity: 0,
+            },
+            {
+                opacity: 1,
+            }
+        ],
+        {
+            duration: 3000,
+            easing: "linear",
+            fill: "forwards"
+        }
+    )
+    content.animate(
+        [
+            {},
+            {},
+            {
+                transform: "rotate(0deg)"
+            },
+            {},
+            {
+                transform: "rotate(-180deg)"
+            }
+        ],
+        {
+            duration: 3000,
+            easing: "linear",
+            fill: "forwards"
+        }
+    )
+}
+
 // Chamada da função no click do usuário
 button.addEventListener("click", () => {
     const numbers = random(quantity.value, min.value, max.value);
@@ -96,4 +171,10 @@ button.addEventListener("click", () => {
     if (numbers) {
         console.log(numbers);
     }
+
+    numbers.forEach((item, index) => {
+        setTimeout(() => {
+            createAnimatedItem(item, result);
+        }, index * 3500);
+    });
 })
