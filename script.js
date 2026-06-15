@@ -92,41 +92,28 @@ function createAnimatedItem(text, container) {
         [
             {
                 opacity: 0,
-                transform: "scale(0.75)",
+                transform: "scale(0.75) rotate(0deg)",
             },
             {
                 opacity: 1,
-                transform: "scale(1)",
-            },
-            {},
-            {},
-            {},
-            {},
-            {}
-        ],
-        {
-            duration: 3500,
-            easing: "ease",
-            fill: "forwards",
-        }
-    );
-
-    card.animate(
-        [
-            {},
-            {},
-            {
-                transform: "rotate(0deg)",
-            },
-            {},
-            {
-                transform: "rotate(180deg)",
+                transform: "scale(1) rotate(0deg)",
             },
             {
+                opacity: 1,
+                transform: "scale(1) rotate(0deg)",
+            },
+            {
+                opacity: 1,
+                transform: "scale(1) rotate(90deg)",
+            },
+            {
+                opacity: 1,
+                transform: "scale(1) rotate(180deg)",
                 backgroundColor: "var(--content-brand)",
             },
             {
-                transform: "rotate(180deg)",
+                opacity: 1,
+                transform: "scale(1) rotate(180deg)",
                 backgroundColor: "transparent",
             }
         ],
@@ -141,19 +128,28 @@ function createAnimatedItem(text, container) {
         [
             {
                 opacity: 0,
+                transform: "rotate(0deg)",
             },
-            {},
-            {},
             {
                 opacity: 0,
+                transform: "rotate(0deg)",
+            },
+            {
+                opacity: 0,
+                transform: "rotate(0deg)",
             },
             {
                 opacity: 1,
+                transform: "rotate(-90deg)",
             },
             {
+                opacity: 1,
+                transform: "rotate(-180deg)",
                 color: "initial",
             },
             {
+                opacity: 1,
+                transform: "rotate(-180deg)",
                 color: "var(--content-brand)",
             }
         ],
@@ -162,33 +158,52 @@ function createAnimatedItem(text, container) {
             easing: "linear",
             fill: "forwards",
         }
-    )
-    content.animate(
-        [
-            {},
-            {},
-            {
-                transform: "rotate(0deg)",
-            },
-            {},
-            {
-                transform: "rotate(-180deg)",
-            },
-            {},
-            {
-                transform: "rotate(-180deg)",
-            }
-        ],
-        {
-            duration: 3500,
-            easing: "linear",
-            fill: "forwards"
-        }
-    )
+    );
 }
 
 
+function animateLayoutChange(container, callback) {
+    const previousPositions = new Map();
 
+    container.querySelectorAll(".item").forEach((item) => {
+        previousPositions.set(item, item.getBoundingClientRect());
+    });
+
+    callback();
+
+    container.querySelectorAll(".item").forEach((item) => {
+        const previousPosition = previousPositions.get(item);
+
+        if (!previousPosition) {
+            return;
+        }
+
+        const currentPosition = item.getBoundingClientRect();
+
+        const deltaX = previousPosition.left - currentPosition.left;
+        const deltaY = previousPosition.top - currentPosition.top;
+
+        if (deltaX === 0 && deltaY === 0) {
+            return;
+        }
+
+        item.animate(
+            [
+                {
+                    transform: `translate(${deltaX}px, ${deltaY}px)`
+                },
+                {
+                    transform: "translate(0, 0)"
+                }
+            ],
+            {
+                duration: 400,
+                easing: "ease",
+                fill: "both"
+            }
+        );
+    });
+}
 
 
 // Chamada da função no click do usuário
@@ -201,7 +216,9 @@ button.addEventListener("click", () => {
 
     numbers.forEach((item, index) => {
         setTimeout(() => {
-            createAnimatedItem(item, result);
+            animateLayoutChange(result, () => {
+                createAnimatedItem(item, result);
+            });
         }, index * 4000);
     });
 })
