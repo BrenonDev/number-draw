@@ -336,10 +336,14 @@ button.addEventListener("click", async () => {
     switch (buttonAction) {
 
         case "start":
+
+            button.blur();
             button.style.display = "none";
             buttonGradientBorder.style.opacity = "0";
             
             console.log(numbers);
+            
+            resultAppearOrResetDraw();
         
             numbers.forEach((item, index) => {
                 setTimeout(() => {
@@ -349,7 +353,6 @@ button.addEventListener("click", async () => {
                 }, index * 3000);
             });
             
-            resultAppearOrResetDraw();
             const delay = numbers.length * 3000 + 2000;
             await new Promise(res => setTimeout(res, delay));
             
@@ -360,6 +363,7 @@ button.addEventListener("click", async () => {
             
         case "reset":
 
+            button.blur();
             resultAppearOrResetDraw();
             
             break;
