@@ -14,6 +14,10 @@ const button = document.querySelector("button[type='submit']");
 const buttonText = document.querySelector("button[type='submit'] span");
 const buttonIcon = document.querySelector("button[type='submit'] img");
 let resultCounter = 0;
+const previousResultTitle = resultTitle.textContent;
+const previousResultSubtitle = resultSubtitle.textContent;
+const previousButtonText = buttonText.textContent;
+const previousButtonIcon = buttonIcon.getAttribute("src");
 
 
 // Previne o comportamento padrão do formulário
@@ -30,31 +34,76 @@ inputs.forEach(input => {
 });
 
 // Função para apresentar o resultado do sorteio
-function resultAppear() {
-    // Salva o estado anterior dos elementos
-    const previousResultTitle = resultTitle.textContent;
-    const previousResultSubtitle = resultSubtitle.textContent;
-    const previousButtonText = buttonText.textContent;
-    const previousButtonIcon = buttonIcon.getAttribute("src");
+function resultAppearOrResetDraw() {
 
-    // Cria o novo estado dos elementos
-    const newResultTitle = "RESULTADO DO SORTEIO";
-    const newResultSubtitle = resultCounter + "º RESULTADO";
-    const newButtonText = "SORTEAR NOVAMENTE";
-    const newButtonIcon = "assets/icon-1.svg";
+    const buttonAction = button.className;
+    
+    switch (buttonAction) {
 
-    // Altera o estado dos elementos
-    resultTitle.textContent = newResultTitle;
-    resultSubtitle.textContent = newResultSubtitle;
-    buttonText.textContent = newButtonText;
-    buttonIcon.setAttribute("src", newButtonIcon);
-    resultTitle.style.textAlign = "center";
-    resultSubtitle.style.textAlign = "center";
-    inputsWrapper.style.display = "none";
-    result.style.display = "flex";
+        case "start":
+
+            // Remove o estado do botão
+            button.classList.remove("start");
+
+            // Incrementa o contador de resultados para apresentar o número do resultado atual
+            resultCounter++;
+
+            // Cria o novo conteúdo dos elementos
+            const newResultTitle = "RESULTADO DO SORTEIO";
+            const newResultSubtitle = resultCounter + "º RESULTADO";
+            const newButtonText = "SORTEAR NOVAMENTE";
+            const newButtonIcon = "assets/icon-1.svg";
+        
+            // Altera o conteúdo dos elementos
+            resultTitle.textContent = newResultTitle;
+            resultSubtitle.textContent = newResultSubtitle;
+            buttonText.textContent = newButtonText;
+            buttonIcon.setAttribute("src", newButtonIcon);
+        
+            // Altera os estilos dos elementos
+            resultTitle.style.textAlign = "center";
+            resultSubtitle.style.textAlign = "center";
+            inputsWrapper.style.display = "none";
+            result.style.display = "flex";
+
+            // Adiciona o novo estado do botão
+            button.classList.add("reset");
+            
+            break;
+            
+        case "reset":
+
+            // Remove o estado do botão
+            button.classList.remove("reset");
+            
+            // Reseta o conteúdo dos elementos
+            resultTitle.textContent = previousResultTitle;
+            resultSubtitle.textContent = previousResultSubtitle;
+            buttonText.textContent = previousButtonText;
+            buttonIcon.setAttribute("src", previousButtonIcon);
+            
+            // Reseta os estilos do elementos
+            resultTitle.style.textAlign = "initial";
+            resultSubtitle.style.textAlign = "initial";
+            inputsWrapper.style.display = "flex";
+            result.style.display = "none";
+
+            
+            // Limpa os resultados anteriores
+            result.replaceChildren();
+
+            // Adiciona o novo estado do botão
+            button.classList.add("start");
+
+            break;
+                
+        default:
+            
+            break;
+    }
 }
 
-resultAppear();
+
 
 
 // Função para sortear os números com base na quantidade, mínimo e máximo definidos pelo usuário
@@ -182,7 +231,7 @@ function createAnimatedItem(text, container) {
             }
         ],
         {
-            duration: 3500,
+            duration: 2500,
             easing: "linear",
             fill: "forwards",
         }
@@ -218,7 +267,7 @@ function createAnimatedItem(text, container) {
             }
         ],
         {
-            duration: 3500,
+            duration: 2500,
             easing: "linear",
             fill: "forwards",
         }
@@ -271,20 +320,51 @@ function animateLayoutChange(container, callback) {
 
 
 // Chamada da função no click do usuário
-button.addEventListener("click", () => {
+button.addEventListener("click", async () => {
     const numbers = random(quantity.value, min.value, max.value);
 
     if (!numbers) {
         return
     };
 
-    console.log(numbers);
+    const buttonAction = button.className;
 
-    numbers.forEach((item, index) => {
-        setTimeout(() => {
-            animateLayoutChange(result, () => {
-                createAnimatedItem(item, result);
+    if (buttonAction == "start") {
+
+    };
+    
+    switch (buttonAction) {
+
+        case "start":
+            button.style.display = "none";
+            buttonGradientBorder.style.opacity = "0";
+            
+            console.log(numbers);
+        
+            numbers.forEach((item, index) => {
+                setTimeout(() => {
+                    animateLayoutChange(result, () => {
+                        createAnimatedItem(item, result);
+                    });
+                }, index * 3000);
             });
-        }, index * 4000);
-    });
-})
+            
+            resultAppearOrResetDraw();
+            const delay = numbers.length * 3000 + 2000;
+            await new Promise(res => setTimeout(res, delay));
+            
+            button.style.display = "flex";
+            buttonGradientBorder.style.opacity = "1";
+            
+            break;
+            
+        case "reset":
+
+            resultAppearOrResetDraw();
+            
+            break;
+    
+        default:
+            break;
+    };
+});
