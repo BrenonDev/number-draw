@@ -10,7 +10,7 @@ body {
         background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 100%);
     }
     
-    & .container {
+    .container {
         width: 100%;
         max-width: 64rem;
         min-height: 100vh;
@@ -95,7 +95,7 @@ body {
                     max-height: 17.5rem;
                     display: flex;
                     justify-content: center;
-                    gap: 1rem;
+                    gap: .5rem;
                     flex-wrap: wrap;
                     overflow-y: auto;
                     scrollbar-width: thin;
@@ -140,6 +140,10 @@ body {
                     display: flex;
                     gap: 1.25rem .75rem;
                     flex-wrap: wrap;
+
+                    .break {
+                        display: none;
+                    }
 
                     .wrapper-input {
                         display: flex;
@@ -354,7 +358,28 @@ body {
         }
     }
 
-    @media (min-width: 848px) {
+    @media (max-width: 24em) {
+        .container {
+            header {
+                h1 {
+                    font: var(--display-sm);
+                }
+            }
+
+            main {
+                form {
+                    .inputs {
+                        .break {
+                            display: block;
+                            width: calc(100% - 7rem);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media (min-width: 53em) {
         .container {
             grid-template-areas: 
             "logo logo"
@@ -376,6 +401,5 @@ body {
                 align-self: center;
             }
         }
-        
     }
 }
