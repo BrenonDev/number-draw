@@ -29,7 +29,7 @@
     --accent-lime: #D1DC97;
     --accent-red: #E9A9B3;
 
-    --scroll-barbackground: #C48DE71A;
+    --scrollbar-background: #C48DE71A;
     
     --angle: 0deg;
     --gradient-border: linear-gradient(var(--angle), var(--accent-green) 0%, var(--accent-lime) 14.84%, var(--accent-red) 32.15%, var(--accent-pink) 65.79%, var(--accent-blue) 84.58%);

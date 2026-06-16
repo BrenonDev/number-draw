@@ -141,7 +141,7 @@ function createAnimatedItem(text, container) {
             },
             {
                 opacity: 1,
-                transform: "scale(1) rotate(180deg)",
+                transform: "scale(.9) rotate(180deg)",
                 backgroundColor: "transparent",
             }
         ],
