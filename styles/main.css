@@ -100,6 +100,8 @@ body {
                     overflow-y: auto;
                     scrollbar-width: thin;
                     scrollbar-color: var(--content-brand) var(--scrollbar-background);
+
+                    display: none;
                     
                     .item {
                         min-width: 6.25rem;
@@ -136,16 +138,18 @@ body {
                     }
                 }
 
-                .inputs {
+                .inputs-wrapper {
                     display: flex;
                     gap: 1.25rem .75rem;
                     flex-wrap: wrap;
+
+                    /* display: none; */
 
                     .break {
                         display: none;
                     }
 
-                    .wrapper-input {
+                    .input-wrapper {
                         display: flex;
                         flex-direction: column;
                         gap: .5rem;
@@ -213,7 +217,7 @@ body {
                         }
                     }
 
-                    .wrapper-checkbox {
+                    .checkbox-wrapper {
                         width: 100%;
                         display: flex;
                         gap: .5rem;
@@ -292,6 +296,8 @@ body {
                     border: .0625rem solid var(--background-tertiary);
                     border-radius: .5rem;
                     transition: border .3s ease;
+
+                    /* opacity: 0; */
                     
                     button {
                         width: 100%;
@@ -306,6 +312,9 @@ body {
                         border: none;
                         border-radius: .3rem;
                         transition: background .3s ease, border-radius .3s ease .1s;
+
+                        /* display: none; */
+
     
                         span {
                             font: var(--label-sm);
@@ -329,11 +338,14 @@ body {
         
         footer {
             grid-area: footer;
+            display: flex;
+            align-items: flex-end;
 
             .questions {
                 display: flex;
                 flex-direction: column;
                 gap: 2.25rem;
+
 
                 .question {
                     display: flex;
@@ -368,7 +380,7 @@ body {
 
             main {
                 form {
-                    .inputs {
+                    .inputs-wrapper {
                         .break {
                             display: block;
                             width: calc(100% - 7rem);
@@ -399,6 +411,10 @@ body {
 
             main {
                 align-self: center;
+            }
+
+            footer {
+                align-items: flex-start;
             }
         }
     }

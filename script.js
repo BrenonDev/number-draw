@@ -5,8 +5,16 @@ const min = document.querySelector("input#min");
 const max = document.querySelector("input#max");
 const unique = document.querySelector("input#unique");
 const ascending = document.querySelector("input#ascending");
-const button = document.querySelector("button[type='submit']");
+const resultTitle = document.querySelector(".title-form h2");
+const resultSubtitle = document.querySelector(".title-form p");
 const result = document.querySelector(".result");
+const inputsWrapper = document.querySelector(".inputs-wrapper");
+const buttonGradientBorder = document.querySelector(".border-gradient.button");
+const button = document.querySelector("button[type='submit']");
+const buttonText = document.querySelector("button[type='submit'] span");
+const buttonIcon = document.querySelector("button[type='submit'] img");
+let resultCounter = 0;
+
 
 // Previne o comportamento padrão do formulário
 form.onsubmit = (event) => {
@@ -20,6 +28,34 @@ inputs.forEach(input => {
         fitInputFontSize(input);
     })
 });
+
+// Função para apresentar o resultado do sorteio
+function resultAppear() {
+    // Salva o estado anterior dos elementos
+    const previousResultTitle = resultTitle.textContent;
+    const previousResultSubtitle = resultSubtitle.textContent;
+    const previousButtonText = buttonText.textContent;
+    const previousButtonIcon = buttonIcon.getAttribute("src");
+
+    // Cria o novo estado dos elementos
+    const newResultTitle = "RESULTADO DO SORTEIO";
+    const newResultSubtitle = resultCounter + "º RESULTADO";
+    const newButtonText = "SORTEAR NOVAMENTE";
+    const newButtonIcon = "assets/icon-1.svg";
+
+    // Altera o estado dos elementos
+    resultTitle.textContent = newResultTitle;
+    resultSubtitle.textContent = newResultSubtitle;
+    buttonText.textContent = newButtonText;
+    buttonIcon.setAttribute("src", newButtonIcon);
+    resultTitle.style.textAlign = "center";
+    resultSubtitle.style.textAlign = "center";
+    inputsWrapper.style.display = "none";
+    result.style.display = "flex";
+}
+
+resultAppear();
+
 
 // Função para sortear os números com base na quantidade, mínimo e máximo definidos pelo usuário
 function random(quantity, min, max) {
