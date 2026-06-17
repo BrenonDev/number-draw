@@ -324,7 +324,7 @@ body {
                         }
                     }
 
-                    &:hover, &:focus-visible, &:focus-within, &:active {
+                    &:focus-visible, &:focus-within, &:active {
                         border: .0625rem solid transparent;
                         transition: border .3s ease;
                         
@@ -332,6 +332,19 @@ body {
                             background: var(--background-secondary);
                             border-radius: .5rem;
                             transition: background .3s ease, border-radius .3s ease;
+                        }
+                    }
+
+                    @media (hover: hover) and (pointer: fine) {
+                        &:hover {
+                            border: .0625rem solid transparent;
+                            transition: border .3s ease;
+                            
+                            button {
+                                background: var(--background-secondary);
+                                border-radius: .5rem;
+                                transition: background .3s ease, border-radius .3s ease;
+                            }
                         }
                     }
                 }
