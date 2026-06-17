@@ -5,19 +5,22 @@ const min = document.querySelector("input#min");
 const max = document.querySelector("input#max");
 const unique = document.querySelector("input#unique");
 const ascending = document.querySelector("input#ascending");
+const titleForm = document.querySelector(".title-form");
 const resultTitle = document.querySelector(".title-form h2");
 const resultSubtitle = document.querySelector(".title-form p");
 const result = document.querySelector(".result");
+const questions = document.querySelector(".questions");
 const inputsWrapper = document.querySelector(".inputs-wrapper");
 const buttonGradientBorder = document.querySelector(".border-gradient.button");
 const button = document.querySelector("button[type='submit']");
 const buttonText = document.querySelector("button[type='submit'] span");
 const buttonIcon = document.querySelector("button[type='submit'] img");
-let resultCounter = 0;
 const previousResultTitle = resultTitle.textContent;
 const previousResultSubtitle = resultSubtitle.textContent;
 const previousButtonText = buttonText.textContent;
 const previousButtonIcon = buttonIcon.getAttribute("src");
+const animatedLayoutElements = [questions, titleForm];
+let resultCounter = 0;
 
 
 // Previne o comportamento padrão do formulário
@@ -303,14 +306,23 @@ function createAnimatedItem(text, container) {
     );
 };
 
-function animateLayoutChange(container, callback) {
+async function animateLayoutChange(container, callback, watchedElements = []) {
     const previousPositions = new Map();
+    const previousWatchedPositions = new Map();
 
     container.querySelectorAll(".item").forEach((item) => {
         previousPositions.set(item, item.getBoundingClientRect());
     });
 
-    callback();
+    watchedElements.forEach((element) => {
+        if (!element) {
+            return;
+        };
+
+        previousWatchedPositions.set(element, element.getBoundingClientRect());
+    });
+
+    await callback();
 
     container.querySelectorAll(".item").forEach((item) => {
         const previousPosition = previousPositions.get(item);
@@ -329,6 +341,39 @@ function animateLayoutChange(container, callback) {
         };
 
         item.animate(
+            [
+                {
+                    transform: `translate(${deltaX}px, ${deltaY}px)`
+                },
+                {
+                    transform: "translate(0, 0)"
+                }
+            ],
+            {
+                duration: 400,
+                easing: "ease",
+                fill: "both",
+            }
+        );
+    });
+
+    watchedElements.forEach((element) => {
+        const previousPosition = previousWatchedPositions.get(element);
+
+        if (!previousPosition) {
+            return;
+        };
+
+        const currentPosition = element.getBoundingClientRect();
+
+        const deltaX = previousPosition.left - currentPosition.left;
+        const deltaY = previousPosition.top - currentPosition.top;
+
+        if (deltaX === 0 && deltaY === 0) {
+            return;
+        };
+
+        element.animate(
             [
                 {
                     transform: `translate(${deltaX}px, ${deltaY}px)`
@@ -365,11 +410,12 @@ button.addEventListener("click", async () => {
 
         case "start":
 
-            resultAppearOrResetDraw();
-            button.blur();
-            await new Promise(res => setTimeout(res, 500));
-            button.style.display = "none";
-            buttonGradientBorder.style.opacity = "0";
+            await animateLayoutChange(result, async () => {
+                button.blur();
+                await resultAppearOrResetDraw();
+                button.style.display = "none";
+                buttonGradientBorder.style.opacity = "0";
+            }, animatedLayoutElements);
             
             console.log(numbers);
             
@@ -380,7 +426,7 @@ button.addEventListener("click", async () => {
                 setTimeout(() => {
                     animateLayoutChange(result, () => {
                         createAnimatedItem(item, result);
-                    });
+                    }, animatedLayoutElements);
                 }, index * 3000);
             });
             
@@ -414,8 +460,10 @@ button.addEventListener("click", async () => {
             
         case "reset":
 
-            button.blur();
-            resultAppearOrResetDraw();
+            await animateLayoutChange(result, async () => {
+                button.blur();
+                await resultAppearOrResetDraw();
+            }, animatedLayoutElements);
             
             break;
     

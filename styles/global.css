@@ -56,7 +56,7 @@
     --label-md: 700 1.25rem/1.5 var(--ff-roboto);
     --label-sm: 700 1rem/1.5 var(--ff-roboto);
 
-    animation: rotateGradient 2s ease infinite;
+    animation: rotateGradient 2.5s ease infinite;
 }
 
 body {
