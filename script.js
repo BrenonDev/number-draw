@@ -232,7 +232,7 @@ function createAnimatedItem(text, container) {
         [
             {
                 opacity: 0,
-                transform: "scale(0.75) rotate(0deg)",
+                transform: "scale(0) rotate(0deg)",
             },
             {
                 opacity: 1,
@@ -258,7 +258,7 @@ function createAnimatedItem(text, container) {
             },
         ],
         {
-            duration: 2500,
+            duration: 2000,
             easing: "linear",
             fill: "forwards",
             delay: 500,
@@ -280,7 +280,7 @@ function createAnimatedItem(text, container) {
                 transform: "rotate(0deg)",
             },
             {
-                opacity: 1,
+                opacity: 0.75,
                 transform: "rotate(-90deg)",
             },
             {
@@ -295,7 +295,7 @@ function createAnimatedItem(text, container) {
             },
         ],
         {
-            duration: 2500,
+            duration: 2000,
             easing: "linear",
             fill: "forwards",
             delay: 500,
@@ -340,7 +340,7 @@ function animateLayoutChange(container, callback) {
             {
                 duration: 400,
                 easing: "ease",
-                fill: "both"
+                fill: "both",
             }
         );
     });
@@ -365,13 +365,14 @@ button.addEventListener("click", async () => {
 
         case "start":
 
+            resultAppearOrResetDraw();
             button.blur();
+            await new Promise(res => setTimeout(res, 500));
             button.style.display = "none";
             buttonGradientBorder.style.opacity = "0";
             
             console.log(numbers);
             
-            resultAppearOrResetDraw();
             
             await new Promise(res => setTimeout(res, 1500));
             
@@ -380,15 +381,35 @@ button.addEventListener("click", async () => {
                     animateLayoutChange(result, () => {
                         createAnimatedItem(item, result);
                     });
-                }, index * 3500);
+                }, index * 3000);
             });
             
-            const delay = numbers.length * 3500 + 2000;
+            const delay = numbers.length * 3000 + 1000;
             await new Promise(res => setTimeout(res, delay));
             
             button.style.display = "flex";
+            buttonGradientBorder.animate(
+                [
+                    {
+                        opacity: 0,
+                    },
+                    {
+                        opacity: 1,
+                    },
+                    {
+                        opacity: 1,
+                    },
+                ],
+                {
+                    duration: 1000,
+                    easing: "ease",
+                    fill: "backwards",
+                }
+            );
+
+            await new Promise(res => setTimeout(res, 500));
             buttonGradientBorder.style.opacity = "1";
-            
+
             break;
             
         case "reset":
