@@ -34,9 +34,34 @@ inputs.forEach(input => {
 });
 
 // Função para apresentar o resultado do sorteio
-function resultAppearOrResetDraw() {
+async function resultAppearOrResetDraw() {
 
     const buttonAction = button.className;
+
+    // Animação de transição de layout para o resultado aparecer ou resetar o sorteio
+    function animateLayoutChange() {
+        form.animate(
+            [
+                {
+                    opacity: 1,
+                },
+                {
+                    opacity: 0,
+                },
+                {
+                    opacity: 0,
+                },
+                {
+                    opacity: 1,
+                },
+            ],
+            {
+                duration: 1000,
+                easing: "linear",
+                fill: "forwards",
+            }
+        );
+    };
     
     switch (buttonAction) {
 
@@ -44,6 +69,9 @@ function resultAppearOrResetDraw() {
 
             // Remove o estado do botão
             button.classList.remove("start");
+
+            animateLayoutChange();
+            await new Promise(res => setTimeout(res, 500));
 
             // Incrementa o contador de resultados para apresentar o número do resultado atual
             resultCounter++;
@@ -75,6 +103,9 @@ function resultAppearOrResetDraw() {
 
             // Remove o estado do botão
             button.classList.remove("reset");
+
+            animateLayoutChange();
+            await new Promise(res => setTimeout(res, 500));
             
             // Reseta o conteúdo dos elementos
             resultTitle.textContent = previousResultTitle;
@@ -87,7 +118,6 @@ function resultAppearOrResetDraw() {
             resultSubtitle.style.textAlign = "initial";
             inputsWrapper.style.display = "flex";
             result.style.display = "none";
-
             
             // Limpa os resultados anteriores
             result.replaceChildren();
@@ -100,11 +130,8 @@ function resultAppearOrResetDraw() {
         default:
             
             break;
-    }
-}
-
-
-
+    };
+};
 
 // Função para sortear os números com base na quantidade, mínimo e máximo definidos pelo usuário
 function random(quantity, min, max) {
@@ -124,7 +151,7 @@ function random(quantity, min, max) {
         if (quantity > max - min + 1) {
             alert("Não é possível sortear essa quantidade sem repetir números. Reduza a quantidade ou aumente o intervalo.");
             return
-        }
+        };
         // Gera os números aleatoriamente
         for (let i = 0; i < quantity; i++) {
             let number = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -133,21 +160,21 @@ function random(quantity, min, max) {
                 i--;
             } else {
                 numbers.push(number);
-            }
-        }
+            };
+        };
     } else {
         // Gera os números aleatoriamente
         for (let i = 0; i < quantity; i++) {
             let number = Math.floor(Math.random() * (max - min + 1)) + min;
 
             numbers.push(number);
-        }
+        };
 
-    }
+    };
 
     if (ascending.checked) {
         numbers.sort((a, b) => a - b);
-    }
+    };
 
     return numbers;
 }
@@ -160,7 +187,7 @@ function fitNumberFontSize(element, maxFontSize = 4, minFontSize = 0.625, maxDig
     if (digits <= maxDigits) {
         element.style.fontSize = `${maxFontSize}rem`;
         return;
-    }
+    };
 
     const newSize = maxFontSize * (maxDigits / digits);
     const finalSize = Math.max(newSize, minFontSize);
@@ -176,7 +203,7 @@ function fitInputFontSize(element, maxFontSize = 2, minFontSize = 0.625, maxDigi
     if (digits <= maxDigits) {
         element.style.fontSize = `${maxFontSize}rem`;
         return;
-    }
+    };
 
     const newSize = maxFontSize * (maxDigits / digits);
     const finalSize = Math.max(newSize, minFontSize);
@@ -228,12 +255,13 @@ function createAnimatedItem(text, container) {
                 opacity: 1,
                 transform: "scale(.9) rotate(180deg)",
                 backgroundColor: "transparent",
-            }
+            },
         ],
         {
             duration: 2500,
             easing: "linear",
             fill: "forwards",
+            delay: 500,
         }
     );
 
@@ -264,16 +292,16 @@ function createAnimatedItem(text, container) {
                 opacity: 1,
                 transform: "rotate(-180deg)",
                 color: "var(--content-brand)",
-            }
+            },
         ],
         {
             duration: 2500,
             easing: "linear",
             fill: "forwards",
+            delay: 500,
         }
     );
-}
-
+};
 
 function animateLayoutChange(container, callback) {
     const previousPositions = new Map();
@@ -289,7 +317,7 @@ function animateLayoutChange(container, callback) {
 
         if (!previousPosition) {
             return;
-        }
+        };
 
         const currentPosition = item.getBoundingClientRect();
 
@@ -298,7 +326,7 @@ function animateLayoutChange(container, callback) {
 
         if (deltaX === 0 && deltaY === 0) {
             return;
-        }
+        };
 
         item.animate(
             [
@@ -316,7 +344,7 @@ function animateLayoutChange(container, callback) {
             }
         );
     });
-}
+};
 
 
 // Chamada da função no click do usuário
@@ -344,16 +372,18 @@ button.addEventListener("click", async () => {
             console.log(numbers);
             
             resultAppearOrResetDraw();
-        
+            
+            await new Promise(res => setTimeout(res, 1500));
+            
             numbers.forEach((item, index) => {
                 setTimeout(() => {
                     animateLayoutChange(result, () => {
                         createAnimatedItem(item, result);
                     });
-                }, index * 3000);
+                }, index * 3500);
             });
             
-            const delay = numbers.length * 3000 + 2000;
+            const delay = numbers.length * 3500 + 2000;
             await new Promise(res => setTimeout(res, delay));
             
             button.style.display = "flex";
