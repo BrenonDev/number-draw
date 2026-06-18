@@ -18,6 +18,7 @@ body {
         padding: 2.75rem 2.25rem;
         gap: 3rem;
         display: grid;
+        grid-template-rows: auto auto 1fr auto;
         grid-template-areas: 
             "logo"
             "header"

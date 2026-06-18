@@ -5,11 +5,10 @@ const min = document.querySelector("input#min");
 const max = document.querySelector("input#max");
 const unique = document.querySelector("input#unique");
 const ascending = document.querySelector("input#ascending");
-const titleForm = document.querySelector(".title-form");
+const main = document.querySelector("main");
 const resultTitle = document.querySelector(".title-form h2");
 const resultSubtitle = document.querySelector(".title-form p");
 const result = document.querySelector(".result");
-const questions = document.querySelector(".questions");
 const inputsWrapper = document.querySelector(".inputs-wrapper");
 const buttonGradientBorder = document.querySelector(".border-gradient.button");
 const button = document.querySelector("button[type='submit']");
@@ -19,7 +18,6 @@ const previousResultTitle = resultTitle.textContent;
 const previousResultSubtitle = resultSubtitle.textContent;
 const previousButtonText = buttonText.textContent;
 const previousButtonIcon = buttonIcon.getAttribute("src");
-const animatedLayoutElements = [questions, titleForm];
 let resultCounter = 0;
 
 
@@ -306,20 +304,11 @@ function createAnimatedItem(text, container) {
     );
 };
 
-async function animateLayoutChange(container, callback, watchedElements = []) {
+async function animateLayoutChange(container, callback) {
     const previousPositions = new Map();
-    const previousWatchedPositions = new Map();
 
     container.querySelectorAll(".item").forEach((item) => {
         previousPositions.set(item, item.getBoundingClientRect());
-    });
-
-    watchedElements.forEach((element) => {
-        if (!element) {
-            return;
-        };
-
-        previousWatchedPositions.set(element, element.getBoundingClientRect());
     });
 
     await callback();
@@ -356,39 +345,46 @@ async function animateLayoutChange(container, callback, watchedElements = []) {
             }
         );
     });
+};
 
-    watchedElements.forEach((element) => {
-        const previousPosition = previousWatchedPositions.get(element);
+async function animateHeightChange(element, callback) {
+    const previousHeight = element.getBoundingClientRect().height;
+    const previousHeightStyle = element.style.height;
+    const previousOverflowY = element.style.overflowY;
 
-        if (!previousPosition) {
-            return;
-        };
+    await callback();
 
-        const currentPosition = element.getBoundingClientRect();
+    const currentHeight = element.getBoundingClientRect().height;
 
-        const deltaX = previousPosition.left - currentPosition.left;
-        const deltaY = previousPosition.top - currentPosition.top;
+    if (previousHeight === currentHeight) {
+        return;
+    };
 
-        if (deltaX === 0 && deltaY === 0) {
-            return;
-        };
+    element.style.height = `${currentHeight}px`;
+    element.style.overflowY = "hidden";
 
-        element.animate(
-            [
-                {
-                    transform: `translate(${deltaX}px, ${deltaY}px)`
-                },
-                {
-                    transform: "translate(0, 0)"
-                }
-            ],
+    const animation = element.animate(
+        [
             {
-                duration: 400,
-                easing: "ease",
-                fill: "both",
+                height: `${previousHeight}px`
+            },
+            {
+                height: `${currentHeight}px`
             }
-        );
-    });
+        ],
+        {
+            duration: 400,
+            easing: "ease",
+        }
+    );
+
+    try {
+        await animation.finished;
+    } finally {
+        animation.cancel();
+        element.style.height = previousHeightStyle;
+        element.style.overflowY = previousOverflowY;
+    };
 };
 
 
@@ -401,21 +397,17 @@ button.addEventListener("click", async () => {
     };
 
     const buttonAction = button.className;
-
-    if (buttonAction == "start") {
-
-    };
     
     switch (buttonAction) {
 
         case "start":
 
-            await animateLayoutChange(result, async () => {
+            await animateHeightChange(main, async () => {
                 button.blur();
                 await resultAppearOrResetDraw();
                 button.style.display = "none";
                 buttonGradientBorder.style.opacity = "0";
-            }, animatedLayoutElements);
+            });
             
             console.log(numbers);
             
@@ -426,7 +418,7 @@ button.addEventListener("click", async () => {
                 setTimeout(() => {
                     animateLayoutChange(result, () => {
                         createAnimatedItem(item, result);
-                    }, animatedLayoutElements);
+                    });
                 }, index * 3000);
             });
             
@@ -434,6 +426,7 @@ button.addEventListener("click", async () => {
             await new Promise(res => setTimeout(res, delay));
             
             button.style.display = "flex";
+
             buttonGradientBorder.animate(
                 [
                     {
@@ -460,10 +453,10 @@ button.addEventListener("click", async () => {
             
         case "reset":
 
-            await animateLayoutChange(result, async () => {
+            await animateHeightChange(main, async () => {
                 button.blur();
                 await resultAppearOrResetDraw();
-            }, animatedLayoutElements);
+            });
             
             break;
     
