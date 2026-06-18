@@ -38,7 +38,7 @@ body {
             }
             
             span {
-                font: var(--logo);
+                font: var(--logo-md);
                 color: var(--content-primary);
             }
         }
@@ -387,6 +387,14 @@ body {
 
     @media (max-width: 24em) {
         .container {
+            .logo {
+                .logo-image {
+                    width: 1.75rem;
+                }
+                span {
+                    font: var(--logo-sm);
+                }
+            }
             header {
                 h1 {
                     font: var(--display-sm);
@@ -418,10 +426,17 @@ body {
 
             .logo {
                 justify-content: flex-start;
+
+                span {
+                    font: var(--logo-md);
+                }
             }
 
             header {
                 align-self: flex-end;
+                h1 {
+                    font: var(--display-lg);
+                }
             }
 
             main {

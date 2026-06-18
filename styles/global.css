@@ -40,7 +40,7 @@
     --ff-roboto: 'Roboto Flex', sans-serif;
     --ff-roboto-mono: 'Roboto Mono', monospace;
 
-    --display-lg: 800 4.5rem/1.3 var(--ff-sora);
+    --display-lg: 800 2.75rem/1.3 var(--ff-sora);
     --display-md: 800 2.5rem/1.3 var(--ff-sora);
     --display-sm: 700 2rem/1.3 var(--ff-sora);
 
@@ -48,7 +48,8 @@
 
     --result: 700 4rem/1.5 var(--ff-roboto-mono);
     
-    --logo: 800 1.5rem/1.3 var(--ff-sora);
+    --logo-md: 800 1.5rem/1.3 var(--ff-sora);
+    --logo-sm: 800 1.25rem/1.3 var(--ff-sora);
 
     --p-lg: 400 1.25rem/1.5 var(--ff-roboto);
     --p-md: 400 1rem/1.5 var(--ff-roboto);
