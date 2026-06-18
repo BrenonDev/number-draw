@@ -74,7 +74,7 @@ async function resultAppearOrResetDraw() {
             button.classList.remove("start");
 
             animateLayoutChange();
-            await new Promise(res => setTimeout(res, 500));
+            await delay(500);
 
             // Incrementa o contador de resultados para apresentar o número do resultado atual
             resultCounter++;
@@ -108,7 +108,7 @@ async function resultAppearOrResetDraw() {
             button.classList.remove("reset");
 
             animateLayoutChange();
-            await new Promise(res => setTimeout(res, 500));
+            await delay(500);
             
             // Reseta o conteúdo dos elementos
             resultTitle.textContent = previousResultTitle;
@@ -436,21 +436,26 @@ async function animateHeightChange(element, callback) {
     };
 };
 
+// Função de delay para aguardar um determinado tempo antes de executar a próxima ação
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function validateInputs() {
+    const quantityValue = Number(quantity.value);
+    const minValue = Number(min.value);
+    const maxValue = Number(max.value);
+}
 
 // Chamada da função no click do usuário
 button.addEventListener("click", async () => {
-    const numbers = random(quantity.value, min.value, max.value);
-
-    if (!numbers) {
-        return
-    };
-
+    
     const buttonAction = button.className;
     
     switch (buttonAction) {
-
+        
         case "start":
-
+            
             await animateHeightChange(main, async () => {
                 button.blur();
                 await resultAppearOrResetDraw();
@@ -458,10 +463,17 @@ button.addEventListener("click", async () => {
                 buttonGradientBorder.style.opacity = "0";
             });
             
-            console.log(numbers);
+            const numbers = random(quantity.value, min.value, max.value);
             
+            if (!numbers) {
+                console.log("Não foi possível gerar os números.");
+                return;
+            } else {
+                console.log("Números gerados com sucesso:");
+                console.log(numbers.join(", "));
+            }
             
-            await new Promise(res => setTimeout(res, 1500));
+            await delay(1000);
             
             numbers.forEach((item, index) => {
                 setTimeout(() => {
@@ -471,8 +483,10 @@ button.addEventListener("click", async () => {
                 }, index * 3000);
             });
             
-            const delay = numbers.length * 3000 + 1000;
-            await new Promise(res => setTimeout(res, delay));
+            const drawDuration = numbers.length * 3000;
+            await delay(drawDuration);
+
+            await delay(1000);
             
             button.style.display = "flex";
 
@@ -495,7 +509,7 @@ button.addEventListener("click", async () => {
                 }
             );
 
-            await new Promise(res => setTimeout(res, 500));
+            await delay(500);
             buttonGradientBorder.style.opacity = "1";
 
             break;
