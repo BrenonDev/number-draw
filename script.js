@@ -14,11 +14,12 @@ const buttonGradientBorder = document.querySelector(".border-gradient.button");
 const button = document.querySelector("button[type='submit']");
 const buttonText = document.querySelector("button[type='submit'] span");
 const buttonIcon = document.querySelector("button[type='submit'] img");
+const questions = document.querySelector(".questions");
 const previousResultTitle = resultTitle.textContent;
 const previousResultSubtitle = resultSubtitle.textContent;
 const previousButtonText = buttonText.textContent;
 const previousButtonIcon = buttonIcon.getAttribute("src");
-const animatedLayoutElements = [titleForm];
+const animatedLayoutElements = [titleForm, questions];
 let resultCounter = 0;
 
 
