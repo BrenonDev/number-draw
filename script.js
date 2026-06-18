@@ -4,8 +4,8 @@ const quantity = document.querySelector("input#quantity");
 const min = document.querySelector("input#min");
 const max = document.querySelector("input#max");
 const unique = document.querySelector("input#unique");
-const ascending = document.querySelector("input#ascending");
 const main = document.querySelector("main");
+const titleForm = document.querySelector(".title-form");
 const resultTitle = document.querySelector(".title-form h2");
 const resultSubtitle = document.querySelector(".title-form p");
 const result = document.querySelector(".result");
@@ -18,6 +18,7 @@ const previousResultTitle = resultTitle.textContent;
 const previousResultSubtitle = resultSubtitle.textContent;
 const previousButtonText = buttonText.textContent;
 const previousButtonIcon = buttonIcon.getAttribute("src");
+const animatedLayoutElements = [titleForm];
 let resultCounter = 0;
 
 
@@ -173,9 +174,7 @@ function random(quantity, min, max) {
 
     };
 
-    if (ascending.checked) {
-        numbers.sort((a, b) => a - b);
-    };
+    numbers.sort((a, b) => a - b);
 
     return numbers;
 }
@@ -304,11 +303,20 @@ function createAnimatedItem(text, container) {
     );
 };
 
-async function animateLayoutChange(container, callback) {
+async function animateLayoutChange(container, callback, animatedElements = []) {
     const previousPositions = new Map();
+    const previousElementPositions = new Map();
 
     container.querySelectorAll(".item").forEach((item) => {
         previousPositions.set(item, item.getBoundingClientRect());
+    });
+
+    animatedElements.forEach((element) => {
+        if (!element) {
+            return;
+        };
+
+        previousElementPositions.set(element, element.getBoundingClientRect());
     });
 
     await callback();
@@ -345,9 +353,49 @@ async function animateLayoutChange(container, callback) {
             }
         );
     });
+
+    animatedElements.forEach((element) => {
+        const previousPosition = previousElementPositions.get(element);
+
+        if (!previousPosition) {
+            return;
+        };
+
+        const currentPosition = element.getBoundingClientRect();
+
+        const deltaX = previousPosition.left - currentPosition.left;
+        const deltaY = previousPosition.top - currentPosition.top;
+
+        if (deltaX === 0 && deltaY === 0) {
+            return;
+        };
+
+        element.animate(
+            [
+                {
+                    transform: `translate(${deltaX}px, ${deltaY}px)`
+                },
+                {
+                    transform: "translate(0, 0)"
+                }
+            ],
+            {
+                duration: 400,
+                easing: "ease",
+                fill: "both",
+            }
+        );
+    });
 };
 
 async function animateHeightChange(element, callback) {
+    const shouldAnimateHeight = window.matchMedia("(max-width: 52.999em)").matches;
+
+    if (!shouldAnimateHeight) {
+        await callback();
+        return;
+    };
+
     const previousHeight = element.getBoundingClientRect().height;
     const previousHeightStyle = element.style.height;
     const previousOverflowY = element.style.overflowY;
@@ -418,7 +466,7 @@ button.addEventListener("click", async () => {
                 setTimeout(() => {
                     animateLayoutChange(result, () => {
                         createAnimatedItem(item, result);
-                    });
+                    }, animatedLayoutElements);
                 }, index * 3000);
             });
             
