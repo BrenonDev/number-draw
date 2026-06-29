@@ -1,26 +1,26 @@
 const form = document.querySelector("form");
 const inputs = document.querySelectorAll("input[type='text']");
-const quantity = document.querySelector("input#quantity");
-const min = document.querySelector("input#min");
-const max = document.querySelector("input#max");
-const unique = document.querySelector("input#unique");
+// const quantity = document.querySelector("input#quantity");
+// const min = document.querySelector("input#min");
+// const max = document.querySelector("input#max");
+// const unique = document.querySelector("input#unique");
 const main = document.querySelector("main");
-const titleForm = document.querySelector(".title-form");
-const resultTitle = document.querySelector(".title-form h2");
-const resultSubtitle = document.querySelector(".title-form p");
+// const resultTitle = document.querySelector(".title-form h2");
+// const resultSubtitle = document.querySelector(".title-form p");
 const result = document.querySelector(".result");
 const inputsWrapper = document.querySelector(".inputs-wrapper");
 const buttonGradientBorder = document.querySelector(".border-gradient.button");
 const button = document.querySelector("button[type='submit']");
-const buttonText = document.querySelector("button[type='submit'] span");
-const buttonIcon = document.querySelector("button[type='submit'] img");
+// const buttonText = document.querySelector("button[type='submit'] span");
+// const buttonIcon = document.querySelector("button[type='submit'] img");
+// const previousResultTitle = resultTitle.textContent;
+// const previousResultSubtitle = resultSubtitle.textContent;
+// const previousButtonText = buttonText.textContent;
+// const previousButtonIcon = buttonIcon.getAttribute("src");
+// let resultCounter = 0;
+const titleForm = document.querySelector(".title-form");
 const questions = document.querySelector(".questions");
-const previousResultTitle = resultTitle.textContent;
-const previousResultSubtitle = resultSubtitle.textContent;
-const previousButtonText = buttonText.textContent;
-const previousButtonIcon = buttonIcon.getAttribute("src");
 const animatedElements = [titleForm, questions];
-let resultCounter = 0;
 
 
 
@@ -48,10 +48,10 @@ button.addEventListener("click", async () => {
         case "start":
             
             await animateHeightChange(main, async () => {
-                button.blur();
+                // button.blur();
                 await resultAppearOrResetDraw();
-                button.style.display = "none";
-                buttonGradientBorder.style.opacity = "0";
+                // button.style.display = "none";
+                // buttonGradientBorder.style.opacity = "0";
             });
             
             const numbers = generateNumbers(quantity.value, min.value, max.value);

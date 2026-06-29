@@ -1,6 +1,9 @@
+import { state } from "./state";
+
 export async function startTheDraw() {
     // Remove o estado do botão
     button.classList.remove("start");
+    button.blur();
 
     animateLayoutChange(form);
     await delay(500);
@@ -9,10 +12,10 @@ export async function startTheDraw() {
     resultCounter++;
 
     // Cria o novo conteúdo dos elementos
-    const newResultTitle = "RESULTADO DO SORTEIO";
-    const newResultSubtitle = resultCounter + "º RESULTADO";
-    const newButtonText = "SORTEAR NOVAMENTE";
-    const newButtonIcon = "assets/icon-1.svg";
+    // const newResultTitle = "RESULTADO DO SORTEIO";
+    // const newResultSubtitle = resultCounter + "º RESULTADO";
+    // const newButtonText = "SORTEAR NOVAMENTE";
+    // const newButtonIcon = "assets/icon-1.svg";
 
     // Altera o conteúdo dos elementos
     resultTitle.textContent = newResultTitle;
@@ -26,6 +29,9 @@ export async function startTheDraw() {
     inputsWrapper.style.display = "none";
     result.style.display = "flex";
 
+    buttonGradientBorder.style.display = "none";
+    buttonGradientBorder.style.opacity = "0";
+
     // Adiciona o novo estado do botão
     button.classList.add("reset");
 }
@@ -33,6 +39,7 @@ export async function startTheDraw() {
 export async function resetTheDraw() {
     // Remove o estado do botão
     button.classList.remove("reset");
+    button.blur();
 
     animateLayoutChange(form);
     await delay(500);

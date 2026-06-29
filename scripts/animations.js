@@ -250,7 +250,9 @@ export function animateLayoutChange(element) {
 };
 
 // Função para animar a transição de opacidade
-export function animateTransparent(element) {
+export async function animateAppearance(element) {
+    element.style.display = "flex";
+
     element.animate(
         [
             {
@@ -269,4 +271,7 @@ export function animateTransparent(element) {
             fill: "backwards",
         }
     );
+
+    await delay(500);
+    element.style.opacity = "1";
 }

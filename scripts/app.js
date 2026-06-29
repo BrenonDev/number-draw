@@ -1,17 +1,14 @@
-import { generateNumbers } from "./randomizer"
+import { startTheDraw, resetTheDraw } from "./ui";
+import { generateNumbers } from "./randomizer";
 
 export function initApp() {
-    // Função para apresentar o resultado do sorteio
-    // async function resultAppearOrResetDraw() {
 
-    form.onsubmit = (event) => {
-        event.preventDefault();
-    }
+    restrictToDigits(inputs);
 
-    restrictToDigits()
+    disableFormSubmit(form);
 
     button.addEventListener("click", async () => {
-        // Previne o comportamento padrão do formulário
+        
 
         const buttonAction = button.className;
         
@@ -20,10 +17,7 @@ export function initApp() {
             case "start":
 
                 await animateHeightChange(main, async () => {
-                    button.blur();
                     await startTheDraw()
-                    button.style.display = "none";
-                    buttonGradientBorder.style.opacity = "0";
                 });
 
                 const numbers = generateNumbers(quantity.value, min.value, max.value);
@@ -47,16 +41,9 @@ export function initApp() {
                 });
                 
                 const drawDuration = numbers.length * 3000;
-                await delay(drawDuration);
+                await delay(drawDuration + 1000);
 
-                await delay(1000);
-                
-                button.style.display = "flex";
-
-                animateTransparent(buttonGradientBorder)
-
-                await delay(500);
-                buttonGradientBorder.style.opacity = "1";
+                animateAppearance(buttonGradientBorder);
                 
                 break;
                 
@@ -74,5 +61,4 @@ export function initApp() {
                 break;
         };
     });
-    // };
 };

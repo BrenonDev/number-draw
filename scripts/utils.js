@@ -36,11 +36,38 @@ export function fitInputFontSize(element, maxFontSize = 2, minFontSize = 0.625, 
 };
 
 // Função para restringir os inputs a dígitos numéricos
-export function restrictToDigits() {
+export function restrictToDigits(inputs) {
     inputs.forEach(input => {
         input.addEventListener("input", (event) => {
             input.value = input.value.replace(/\D/g, "");
             fitInputFontSize(input);
         });
     });
+};
+
+export function disableFormSubmit(form) {
+    form.onsubmit = (event) => {
+        event.preventDefault();
+    };
+};
+
+// Função para validações de entrada
+export function validateRange(quantity, min, max, unique) {
+    if (quantity <= 0 || min > max) {
+        console.log("Erro!");
+        return false;
+    };
+    
+    if (unique && quantity > max - min + 1) {
+        console.log("Erro!");
+        return false;
+    };
+};
+
+export function makeButtonVisible() {
+    
+};
+
+export function makeButtonInvisible() {
+    
 };
