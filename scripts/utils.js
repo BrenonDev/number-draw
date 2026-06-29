@@ -1,5 +1,5 @@
 // Função de delay para aguardar um determinado tempo antes de executar a próxima ação
-function delay(ms) {
+export function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 };
 

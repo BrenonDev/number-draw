@@ -1,26 +1,36 @@
-import { startTheDraw, resetTheDraw } from "./ui";
-import { generateNumbers } from "./randomizer";
+import { elements, startTheDraw, resetTheDraw } from "./ui.js";
+import { state } from "./state.js";
+import { generateNumbers } from "./randomizer.js";
+import { delay, disableFormSubmit, restrictToDigits } from "./utils.js";
+import { animateAppear, animateHeightChange, animateItemMovement, animateNumberEntry } from "./animations.js";
 
 export function initApp() {
+    
+    state.quantity = Number(elements.quantity.value);
+    state.min = Number(elements.min.value);
+    state.max = Number(elements.max.value);
+    state.unique = Boolean(elements.unique.checked);
+    
+    const animatedElements = [elements.titleForm, elements.questions];
 
-    restrictToDigits(inputs);
+    restrictToDigits(elements.inputs);
 
-    disableFormSubmit(form);
+    disableFormSubmit(elements.form);
 
-    button.addEventListener("click", async () => {
-        
+    elements.button.addEventListener("click", async () => {
 
-        const buttonAction = button.className;
+        const buttonAction = elements.button.className;
         
         switch (buttonAction) {
 
             case "start":
 
-                await animateHeightChange(main, async () => {
+                await animateHeightChange(elements.main, async () => {
                     await startTheDraw()
                 });
 
-                const numbers = generateNumbers(quantity.value, min.value, max.value);
+                // const numbers = generateNumbers(elements.quantity, elements.min, elements.max, elements.unique);
+                state.resultNumbers = generateNumbers(elements.quantity, elements.min, elements.max, elements.unique);
 
                 // if (!numbers) {
                 //     console.log("Não foi possível gerar os números.");
@@ -32,25 +42,25 @@ export function initApp() {
 
                 await delay(1000);
             
-                numbers.forEach((item, index) => {
+                state.resultNumbers.forEach((number, index) => {
                     setTimeout(() => {
-                        animateItemMovement(result, () => {
-                            animateNumberEntry(item, result);
+                        animateItemMovement(elements.result, () => {
+                            animateNumberEntry(number, result);
                         }, animatedElements);
                     }, index * 3000);
                 });
                 
-                const drawDuration = numbers.length * 3000;
+                const drawDuration = state.resultNumbers.length * 3000;
                 await delay(drawDuration + 1000);
 
-                animateAppearance(buttonGradientBorder);
+                animateAppear(elements.buttonGradientBorder);
                 
                 break;
                 
             case "reset":
 
-                await animateHeightChange(main, async () => {
-                    button.blur();
+                await animateHeightChange(elements.main, async () => {
+                    elements.button.blur();
                     await resetTheDraw()
                 });
 

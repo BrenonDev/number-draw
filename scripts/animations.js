@@ -1,3 +1,5 @@
+import { delay, fitNumberFontSize } from "./utils.js";
+
 // Função de animação dos números sorteados
 export function animateNumberEntry(text, container) {
     const item = document.createElement("div");
@@ -6,7 +8,6 @@ export function animateNumberEntry(text, container) {
 
     item.classList.add("item");
     card.classList.add("item-card");
-
     content.textContent = text;
 
     fitNumberFontSize(content);
@@ -250,7 +251,7 @@ export function animateLayoutChange(element) {
 };
 
 // Função para animar a transição de opacidade
-export async function animateAppearance(element) {
+export async function animateAppear(element) {
     element.style.display = "flex";
 
     element.animate(

@@ -1,65 +1,81 @@
-import { state } from "./state";
+import { state } from "./state.js";
+import { animateLayoutChange } from "./animations.js";
+import { delay } from "./utils.js";
+
+export const elements = {
+    form: document.querySelector("form"),
+    inputs: document.querySelectorAll("input[type='text']"),
+    quantity: document.querySelector("#quantity"),
+    min: document.querySelector("#min"),
+    max: document.querySelector("#max"),
+    unique: document.querySelector("#unique"),
+    main: document.querySelector("main"),
+    resultTitle: document.querySelector(".title-form h2"),
+    resultSubtitle: document.querySelector(".title-form p"),
+    result: document.querySelector(".result"),
+    inputsWrapper: document.querySelector(".inputs-wrapper"),
+    buttonGradientBorder: document.querySelector(".border-gradient.button"),
+    button: document.querySelector("button[type='submit']"),
+    buttonText: document.querySelector("button[type='submit'] span"),
+    buttonIcon: document.querySelector("button[type='submit'] img"),
+    titleForm: document.querySelector(".title-form"),
+    questions: document.querySelector(".questions"),
+}
 
 export async function startTheDraw() {
     // Remove o estado do botão
-    button.classList.remove("start");
-    button.blur();
+    elements.button.classList.remove("start");
+    elements.button.blur();
 
-    animateLayoutChange(form);
+    animateLayoutChange(elements.form);
     await delay(500);
 
     // Incrementa o contador de resultados para apresentar o número do resultado atual
-    resultCounter++;
-
-    // Cria o novo conteúdo dos elementos
-    // const newResultTitle = "RESULTADO DO SORTEIO";
-    // const newResultSubtitle = resultCounter + "º RESULTADO";
-    // const newButtonText = "SORTEAR NOVAMENTE";
-    // const newButtonIcon = "assets/icon-1.svg";
+    state.resultCounter++;
 
     // Altera o conteúdo dos elementos
-    resultTitle.textContent = newResultTitle;
-    resultSubtitle.textContent = newResultSubtitle;
-    buttonText.textContent = newButtonText;
-    buttonIcon.setAttribute("src", newButtonIcon);
+    elements.resultTitle.textContent = state.newResultTitle;
+    elements.resultSubtitle.textContent = state.newResultSubtitle;
+    elements.buttonText.textContent = state.newButtonText;
+    elements.buttonIcon.setAttribute("src", state.newButtonIcon);
 
     // Altera os estilos dos elementos
-    resultTitle.style.textAlign = "center";
-    resultSubtitle.style.textAlign = "center";
-    inputsWrapper.style.display = "none";
-    result.style.display = "flex";
+    elements.resultTitle.style.textAlign = "center";
+    elements.resultSubtitle.style.textAlign = "center";
+    elements.inputsWrapper.style.display = "none";
+    elements.result.style.display = "flex";
 
-    buttonGradientBorder.style.display = "none";
-    buttonGradientBorder.style.opacity = "0";
+    elements.buttonGradientBorder.style.display = "none";
+    elements.buttonGradientBorder.style.opacity = "0";
 
     // Adiciona o novo estado do botão
-    button.classList.add("reset");
+    elements.button.classList.add("reset");
 }
 
 export async function resetTheDraw() {
     // Remove o estado do botão
-    button.classList.remove("reset");
-    button.blur();
+    elements.button.classList.remove("reset");
+    elements.button.blur();
 
     animateLayoutChange(form);
     await delay(500);
     
     // Reseta o conteúdo dos elementos
-    resultTitle.textContent = previousResultTitle;
-    resultSubtitle.textContent = previousResultSubtitle;
-    buttonText.textContent = previousButtonText;
-    buttonIcon.setAttribute("src", previousButtonIcon);
+    elements.resultTitle.textContent = state.previousResultTitle;
+    elements.resultSubtitle.textContent = state.previousResultSubtitle;
+    elements.buttonText.textContent = state.previousButtonText;
+    elements.buttonIcon.setAttribute("src", state.previousButtonIcon);
     
     // Reseta os estilos do elementos
-    resultTitle.style.textAlign = "initial";
-    resultSubtitle.style.textAlign = "initial";
-    inputsWrapper.style.display = "flex";
-    result.style.display = "none";
+    elements.resultTitle.style.textAlign = "initial";
+    elements.resultSubtitle.style.textAlign = "initial";
+    elements.inputsWrapper.style.display = "flex";
+    elements.result.style.display = "none";
     
     // Limpa os resultados anteriores
-    result.replaceChildren();
+    elements.result.replaceChildren();
 
     // Adiciona o novo estado do botão
-    button.classList.add("start");
+    elements.button.classList.add("start");
 }
 

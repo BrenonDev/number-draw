@@ -1,13 +1,25 @@
-export const state = {
-    quantity: Number(document.querySelector("input#quantity").value),
-    min: Number(document.querySelector("input#min").value),
-    max: Number(document.querySelector("input#max").value),
-    unique: Boolean(document.querySelector("input#unique").checked),
+import { elements } from "./ui.js";
 
-    previousResultTitle: document.querySelector(".title-form h2").textContent,
-    previousResultSubtitle: document.querySelector(".title-form p").textContent,
-    previousButtonText: document.querySelector("button[type='submit'] span").textContent,
-    previousButtonIcon: document.querySelector("button[type='submit'] img").getAttribute("src"),
+export const state = {
+    // quantity: Number(elements.quantity.value),
+    // min: Number(elements.min.value),
+    // max: Number(elements.max.value),
+    // unique: Boolean(elements.unique.checked),
+
+    // previousResultTitle: elements.resultTitle.textContent,
+    // previousResultSubtitle: elements.resultSubtitle.textContent,
+    // previousButtonText: elements.buttonText.textContent,
+    // previousButtonIcon: document.newButtonIcon.getAttribute("src"),
+
+    quantity: 0,
+    min: 0,
+    max: 0,
+    unique: 0,
+
+    previousResultTitle: "QUERO SORTEAR:",
+    previousResultSubtitle: 'Defina a quantidade de números e o intervalo, clique em "Sortear" e veja os resultados na tela. É rápido e fácil!',
+    previousButtonText: "SORTEAR",
+    previousButtonIcon: "assets/icon-2.svg",
 
     newResultTitle: "RESULTADO DO SORTEIO",
     newResultSubtitle: "º RESULTADO",
@@ -15,5 +27,5 @@ export const state = {
     newButtonIcon: "assets/icon-1.svg",
 
     resultCounter: 0,
-    result: [],
+    resultNumbers: [],
 }
