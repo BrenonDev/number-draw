@@ -24,7 +24,7 @@ export const elements = {
 
 export async function startTheDraw() {
     // Remove o estado do botão
-    elements.button.classList.remove("start");
+    state.buttonMode = "";
     elements.button.blur();
 
     // Animação na troca de layout
@@ -57,12 +57,12 @@ export async function startTheDraw() {
     elements.buttonGradientBorder.style.opacity = "1";
 
     // Adiciona o novo estado do botão
-    elements.button.classList.add("reset");
+    state.buttonMode = "reset";
 }
 
 export async function resetTheDraw() {
     // Remove o estado do botão
-    elements.button.classList.remove("reset");
+    state.buttonMode = "";
     elements.button.blur();
 
     // Animação na troca de layout
@@ -85,6 +85,6 @@ export async function resetTheDraw() {
     elements.result.replaceChildren();
 
     // Adiciona o novo estado do botão
-    elements.button.classList.add("start");
+    state.buttonMode = "start";
 }
 

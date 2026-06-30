@@ -298,8 +298,6 @@ body {
                     border: .0625rem solid var(--background-tertiary);
                     border-radius: .5rem;
                     transition: border .3s ease;
-
-                    /* opacity: 0; */
                     
                     button {
                         width: 100%;
@@ -314,8 +312,6 @@ body {
                         border: none;
                         border-radius: .3rem;
                         transition: background .3s ease, border-radius .3s ease .1s;
-
-                        /* display: none; */
 
     
                         span {

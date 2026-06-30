@@ -18,15 +18,13 @@ export function initApp() {
         state.min = Number(elements.min.value);
         state.max = Number(elements.max.value);
         state.unique = Boolean(elements.unique.checked);
-
-        const buttonAction = elements.button.className;
         
-        switch (buttonAction) {
+        switch (state.buttonMode) {
 
             case "start":
 
                 await animateHeightChange(elements.main, async () => {
-                    startTheDraw()
+                    startTheDraw();
                 });
 
                 state.resultNumbers = generateNumbers(state.quantity, state.min, state.max, state.unique);

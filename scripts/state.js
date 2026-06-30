@@ -1,16 +1,4 @@
-import { elements } from "./ui.js";
-
 export const state = {
-    // quantity: Number(elements.quantity.value),
-    // min: Number(elements.min.value),
-    // max: Number(elements.max.value),
-    // unique: Boolean(elements.unique.checked),
-
-    // previousResultTitle: elements.resultTitle.textContent,
-    // previousResultSubtitle: elements.resultSubtitle.textContent,
-    // previousButtonText: elements.buttonText.textContent,
-    // previousButtonIcon: document.newButtonIcon.getAttribute("src"),
-
     quantity: 1,
     min: 1,
     max: 100,
@@ -26,6 +14,7 @@ export const state = {
     newButtonText: "SORTEAR NOVAMENTE",
     newButtonIcon: "assets/icon-1.svg",
 
+    buttonMode: "start",
     resultCounter: 0,
     resultNumbers: [],
 }
