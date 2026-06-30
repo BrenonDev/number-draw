@@ -2,7 +2,7 @@ import { elements, startTheDraw, resetTheDraw } from "./ui.js";
 import { state } from "./state.js";
 import { generateNumbers } from "./randomizer.js";
 import { delay, disableFormSubmit, restrictToDigits, validateRange } from "./utils.js";
-import { animateHeightChange, animateItemMovement, animateNumberEntry } from "./animations.js";
+import { animateHeightChange, animateItemMovement, animateNumberEntry, HoverIconAnimation } from "./animations.js";
 
 // Função de inicialização da aplicação
 export function initApp() {
@@ -10,6 +10,8 @@ export function initApp() {
     restrictToDigits(elements.inputs);
 
     disableFormSubmit(elements.form);
+
+    HoverIconAnimation(elements.button, elements.buttonIcon);
 
     const animatedElements = [elements.titleForm, elements.questions];
     

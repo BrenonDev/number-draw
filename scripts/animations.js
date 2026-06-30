@@ -1,6 +1,26 @@
 import { state } from "./state.js";
 import { delay, fitNumberFontSize } from "./utils.js";
 
+// Função de animação no ícone ao passar o mouse no botão
+export function HoverIconAnimation(button, icon) {
+
+    button.addEventListener('mouseenter', () => {
+        button.classList.add('is-animating');
+        button.classList.remove('is-stopping');
+    });
+
+    button.addEventListener('mouseleave', () => {
+        button.classList.add('is-stopping');
+    });
+
+    icon.addEventListener('animationiteration', () => {
+        if (button.classList.contains('is-stopping')) {
+            button.classList.remove('is-animating');
+            button.classList.remove('is-stopping');
+        };
+    });
+};
+
 // Função de animação dos números sorteados
 export function animateNumberEntry(text, container) {
     const item = document.createElement("div");

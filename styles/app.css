@@ -312,11 +312,14 @@ body {
                         border: none;
                         border-radius: .3rem;
                         transition: background .3s ease, border-radius .3s ease .1s;
-
     
                         span {
                             font: var(--label-sm);
                             color: var(--content-primary);
+                        }
+
+                        &.is-animating img[src="assets/icon-2.svg"] {
+                            animation: gentle-slide 1s ease-in-out infinite;
                         }
                     }
 
@@ -339,7 +342,7 @@ body {
                             button {
                                 background: var(--background-secondary);
                                 border-radius: .5rem;
-                                transition: background .3s ease, border-radius .3s ease;
+                                transition: background .3s ease, border-radius .3s ease;  
                             }
                         }
                     }
@@ -449,5 +452,19 @@ body {
                 align-items: flex-start;
             }
         }
+    }
+}
+
+@keyframes gentle-slide {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(.25rem);
+    }
+
+    100% {
+        transform: translateX(0);
     }
 }

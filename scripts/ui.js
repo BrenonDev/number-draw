@@ -22,6 +22,7 @@ export const elements = {
     titleForm: document.querySelector(".title-form"),
     questions: document.querySelector(".questions"),
 }
+
 // Função para iniciar o sorteio dos números
 export async function startTheDraw() {
     // Remove o estado do botão
@@ -86,4 +87,6 @@ export async function resetTheDraw() {
 
     // Adiciona o novo estado do botão
     state.buttonMode = "start";
+    elements.button.classList.remove('is-animating');
+    elements.buttonIcon.classList.remove('is-stopping');
 };
