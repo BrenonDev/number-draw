@@ -62,6 +62,8 @@ export function validateRange(quantity, min, max, unique) {
         console.log("Erro!");
         return false;
     };
+
+    return true;
 };
 
 export function makeButtonVisible() {

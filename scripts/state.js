@@ -11,10 +11,10 @@ export const state = {
     // previousButtonText: elements.buttonText.textContent,
     // previousButtonIcon: document.newButtonIcon.getAttribute("src"),
 
-    quantity: 0,
-    min: 0,
-    max: 0,
-    unique: 0,
+    quantity: 1,
+    min: 1,
+    max: 100,
+    unique: true,
 
     previousResultTitle: "QUERO SORTEAR:",
     previousResultSubtitle: 'Defina a quantidade de números e o intervalo, clique em "Sortear" e veja os resultados na tela. É rápido e fácil!',

@@ -6,18 +6,18 @@ import { animateAppear, animateHeightChange, animateItemMovement, animateNumberE
 
 export function initApp() {
     
-    state.quantity = Number(elements.quantity.value);
-    state.min = Number(elements.min.value);
-    state.max = Number(elements.max.value);
-    state.unique = Boolean(elements.unique.checked);
-    
-    const animatedElements = [elements.titleForm, elements.questions];
-
     restrictToDigits(elements.inputs);
 
     disableFormSubmit(elements.form);
 
+    const animatedElements = [elements.titleForm, elements.questions];
+    
     elements.button.addEventListener("click", async () => {
+        
+        state.quantity = Number(elements.quantity.value);
+        state.min = Number(elements.min.value);
+        state.max = Number(elements.max.value);
+        state.unique = Boolean(elements.unique.checked);
 
         const buttonAction = elements.button.className;
         
@@ -29,23 +29,22 @@ export function initApp() {
                     await startTheDraw()
                 });
 
-                // const numbers = generateNumbers(elements.quantity, elements.min, elements.max, elements.unique);
-                state.resultNumbers = generateNumbers(elements.quantity, elements.min, elements.max, elements.unique);
+                state.resultNumbers = generateNumbers(state.quantity, state.min, state.max, state.unique);
 
-                // if (!numbers) {
-                //     console.log("Não foi possível gerar os números.");
-                //     return;
-                // } else {
-                //     console.log("Números gerados com sucesso:");
-                //     console.log(numbers.join(", "));
-                // }
+                if (!state.resultNumbers) {
+                    console.log("Não foi possível gerar os números.");
+                    return;
+                } else {
+                    console.log("Números gerados com sucesso:");
+                    console.log(state.resultNumbers.join(", "));
+                };
 
                 await delay(1000);
             
                 state.resultNumbers.forEach((number, index) => {
                     setTimeout(() => {
                         animateItemMovement(elements.result, () => {
-                            animateNumberEntry(number, result);
+                            animateNumberEntry(number, elements.result);
                         }, animatedElements);
                     }, index * 3000);
                 });
@@ -61,7 +60,7 @@ export function initApp() {
 
                 await animateHeightChange(elements.main, async () => {
                     elements.button.blur();
-                    await resetTheDraw()
+                    await resetTheDraw();
                 });
 
                 break;

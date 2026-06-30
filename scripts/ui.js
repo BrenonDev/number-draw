@@ -35,7 +35,7 @@ export async function startTheDraw() {
 
     // Altera o conteúdo dos elementos
     elements.resultTitle.textContent = state.newResultTitle;
-    elements.resultSubtitle.textContent = state.newResultSubtitle;
+    elements.resultSubtitle.textContent = state.resultCounter + state.newResultSubtitle;
     elements.buttonText.textContent = state.newButtonText;
     elements.buttonIcon.setAttribute("src", state.newButtonIcon);
 
@@ -57,7 +57,7 @@ export async function resetTheDraw() {
     elements.button.classList.remove("reset");
     elements.button.blur();
 
-    animateLayoutChange(form);
+    animateLayoutChange(elements.form);
     await delay(500);
     
     // Reseta o conteúdo dos elementos
