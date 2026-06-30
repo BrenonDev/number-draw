@@ -1,5 +1,5 @@
 import { state } from "./state.js";
-import { animateLayoutChange } from "./animations.js";
+import { animateAppear, animateLayoutChange } from "./animations.js";
 import { delay } from "./utils.js";
 
 export const elements = {
@@ -27,6 +27,7 @@ export async function startTheDraw() {
     elements.button.classList.remove("start");
     elements.button.blur();
 
+    // Animação na troca de layout
     animateLayoutChange(elements.form);
     await delay(500);
 
@@ -45,8 +46,15 @@ export async function startTheDraw() {
     elements.inputsWrapper.style.display = "none";
     elements.result.style.display = "flex";
 
-    elements.buttonGradientBorder.style.display = "none";
+    // Animação de aparecer o botão de reiniciar o sorteio
+    elements.button.style.display = "none";
     elements.buttonGradientBorder.style.opacity = "0";
+    const drawDuration = state.resultNumbers.length * 3000 + 1000;
+    await delay(drawDuration);
+    elements.button.style.display = "flex";
+    animateAppear(elements.buttonGradientBorder);
+    await delay(500);
+    elements.buttonGradientBorder.style.opacity = "1";
 
     // Adiciona o novo estado do botão
     elements.button.classList.add("reset");
@@ -57,6 +65,7 @@ export async function resetTheDraw() {
     elements.button.classList.remove("reset");
     elements.button.blur();
 
+    // Animação na troca de layout
     animateLayoutChange(elements.form);
     await delay(500);
     

@@ -26,7 +26,7 @@ export function initApp() {
             case "start":
 
                 await animateHeightChange(elements.main, async () => {
-                    await startTheDraw()
+                    startTheDraw()
                 });
 
                 state.resultNumbers = generateNumbers(state.quantity, state.min, state.max, state.unique);
@@ -48,11 +48,6 @@ export function initApp() {
                         }, animatedElements);
                     }, index * 3000);
                 });
-                
-                const drawDuration = state.resultNumbers.length * 3000;
-                await delay(drawDuration + 1000);
-
-                animateAppear(elements.buttonGradientBorder);
                 
                 break;
                 
