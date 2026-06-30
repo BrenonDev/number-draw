@@ -1,7 +1,7 @@
 import { elements, startTheDraw, resetTheDraw } from "./ui.js";
 import { state } from "./state.js";
 import { generateNumbers } from "./randomizer.js";
-import { delay, disableFormSubmit, restrictToDigits } from "./utils.js";
+import { delay, disableFormSubmit, restrictToDigits, validateRange } from "./utils.js";
 import { animateAppear, animateHeightChange, animateItemMovement, animateNumberEntry } from "./animations.js";
 
 export function initApp() {
@@ -14,14 +14,18 @@ export function initApp() {
     
     elements.button.addEventListener("click", async () => {
         
-        state.quantity = Number(elements.quantity.value);
-        state.min = Number(elements.min.value);
-        state.max = Number(elements.max.value);
-        state.unique = Boolean(elements.unique.checked);
-        
         switch (state.buttonMode) {
-
+            
             case "start":
+
+                state.quantity = Number(elements.quantity.value);
+                state.min = Number(elements.min.value);
+                state.max = Number(elements.max.value);
+                state.unique = Boolean(elements.unique.checked);
+
+                if (!validateRange(state.quantity, state.min, state.max, state.unique)) {
+                    return null;
+                };
 
                 await animateHeightChange(elements.main, async () => {
                     startTheDraw();
@@ -52,7 +56,6 @@ export function initApp() {
             case "reset":
 
                 await animateHeightChange(elements.main, async () => {
-                    elements.button.blur();
                     await resetTheDraw();
                 });
 

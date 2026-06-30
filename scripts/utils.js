@@ -45,31 +45,35 @@ export function restrictToDigits(inputs) {
     });
 };
 
+// Função para desabilitar o envio padrão do formulário
 export function disableFormSubmit(form) {
     form.onsubmit = (event) => {
         event.preventDefault();
     };
 };
 
-// Função para validações de entrada
+// Função para validação das entradas
 export function validateRange(quantity, min, max, unique) {
-    if (quantity <= 0 || min > max) {
-        console.log("Erro!");
+
+    if (!quantity || Number.isNaN(quantity) || !min || Number.isNaN(min) || !max || Number.isNaN(max)) {
+        alert("Preencha todos os campos antes de sortear.");
         return false;
     };
-    
+
+    if (quantity <= 0) {
+        alert("Informe uma quantidade de números maior que zero.");
+        return false;
+    };
+
+    if (min > max) {
+        alert("O valor inicial não pode ser maior que o valor final.");
+        return false;
+    };
+
     if (unique && quantity > max - min + 1) {
-        console.log("Erro!");
+        alert("Não é possível sortear essa quantidade sem repetir números. Reduza a quantidade ou aumente o intervalo.");
         return false;
     };
 
     return true;
-};
-
-export function makeButtonVisible() {
-    
-};
-
-export function makeButtonInvisible() {
-    
 };

@@ -1,4 +1,4 @@
-import { delay, fitNumberFontSize } from "./utils.js";
+import { fitNumberFontSize } from "./utils.js";
 
 // Função de animação dos números sorteados
 export function animateNumberEntry(text, container) {

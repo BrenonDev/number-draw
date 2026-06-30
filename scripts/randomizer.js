@@ -1,12 +1,7 @@
-import { validateRange } from "./utils.js";
 import { state } from "./state.js";
 
 // Função para sortear os números com base na quantidade, mínimo e máximo definidos pelo usuário
 export function generateNumbers(quantity, min, max, unique) {
-
-    if (!validateRange(quantity, min, max, unique)) {
-        return null;
-    };
 
     state.resultNumbers = [];
 
