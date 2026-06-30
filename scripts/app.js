@@ -2,8 +2,9 @@ import { elements, startTheDraw, resetTheDraw } from "./ui.js";
 import { state } from "./state.js";
 import { generateNumbers } from "./randomizer.js";
 import { delay, disableFormSubmit, restrictToDigits, validateRange } from "./utils.js";
-import { animateAppear, animateHeightChange, animateItemMovement, animateNumberEntry } from "./animations.js";
+import { animateHeightChange, animateItemMovement, animateNumberEntry } from "./animations.js";
 
+// Função de inicialização da aplicação
 export function initApp() {
     
     restrictToDigits(elements.inputs);
@@ -23,32 +24,29 @@ export function initApp() {
                 state.max = Number(elements.max.value);
                 state.unique = Boolean(elements.unique.checked);
 
-                if (!validateRange(state.quantity, state.min, state.max, state.unique)) {
+                if (validateRange(state.quantity, state.min, state.max, state.unique)) {
+                    state.resultNumbers = [];
+                    state.resultNumbers = generateNumbers(state.quantity, state.min, state.max, state.unique);
+                    state.resultCounter++;
+                    state.previousResultNumbers.push(state.resultNumbers);
+                    state.totalAnimationDuration = state.resultNumbers.length * state.individualAnimationDuration;
+                } else {
                     return null;
-                };
+                }
 
                 await animateHeightChange(elements.main, async () => {
                     startTheDraw();
+                    await delay(state.layoutChangeDuration / 2);
                 });
 
-                state.resultNumbers = generateNumbers(state.quantity, state.min, state.max, state.unique);
-
-                if (!state.resultNumbers) {
-                    console.log("Não foi possível gerar os números.");
-                    return;
-                } else {
-                    console.log("Números gerados com sucesso:");
-                    console.log(state.resultNumbers.join(", "));
-                };
-
-                await delay(1000);
+                await delay(state.layoutChangeDuration / 2);
             
                 state.resultNumbers.forEach((number, index) => {
                     setTimeout(() => {
                         animateItemMovement(elements.result, () => {
                             animateNumberEntry(number, elements.result);
                         }, animatedElements);
-                    }, index * 3000);
+                    }, index * state.individualAnimationDuration);
                 });
                 
                 break;

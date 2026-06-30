@@ -3,39 +3,7 @@ export function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 };
 
-// Função para diminuir o tamanho da font dos números sorteados quando mais de 2 dígitos
-export function fitNumberFontSize(element, maxFontSize = 4, minFontSize = 0.625, maxDigits = 2) {
-    const text = element.textContent.trim();
-    const digits = text.length;
-
-    if (digits <= maxDigits) {
-        element.style.fontSize = `${maxFontSize}rem`;
-        return;
-    };
-
-    const newSize = maxFontSize * (maxDigits / digits);
-    const finalSize = Math.max(newSize, minFontSize);
-
-    element.style.fontSize = `${finalSize}rem`;
-};
-
-// Função para diminuir o tamanho da font dos números dos inputs quando mais de 3 dígitos
-export function fitInputFontSize(element, maxFontSize = 2, minFontSize = 0.625, maxDigits = 3) {
-    const value = element.value.trim();
-    const digits = value.length;
-
-    if (digits <= maxDigits) {
-        element.style.fontSize = `${maxFontSize}rem`;
-        return;
-    };
-
-    const newSize = maxFontSize * (maxDigits / digits);
-    const finalSize = Math.max(newSize, minFontSize);
-
-    element.style.fontSize = `${finalSize}rem`;
-};
-
-// Função para restringir os inputs a dígitos numéricos
+// Função para restringir os inputs a caracteres numéricos
 export function restrictToDigits(inputs) {
     inputs.forEach(input => {
         input.addEventListener("input", (event) => {
@@ -76,4 +44,36 @@ export function validateRange(quantity, min, max, unique) {
     };
 
     return true;
+};
+
+// Função para diminuir o tamanho da font dos números dos inputs quando mais de 3 dígitos
+export function fitInputFontSize(element, maxFontSize = 2, minFontSize = 0.625, maxDigits = 3) {
+    const value = element.value.trim();
+    const digits = value.length;
+
+    if (digits <= maxDigits) {
+        element.style.fontSize = `${maxFontSize}rem`;
+        return;
+    };
+
+    const newSize = maxFontSize * (maxDigits / digits);
+    const finalSize = Math.max(newSize, minFontSize);
+
+    element.style.fontSize = `${finalSize}rem`;
+};
+
+// Função para diminuir o tamanho da font dos números sorteados quando mais de 2 dígitos
+export function fitNumberFontSize(element, maxFontSize = 4, minFontSize = 0.625, maxDigits = 2) {
+    const text = element.textContent.trim();
+    const digits = text.length;
+
+    if (digits <= maxDigits) {
+        element.style.fontSize = `${maxFontSize}rem`;
+        return;
+    };
+
+    const newSize = maxFontSize * (maxDigits / digits);
+    const finalSize = Math.max(newSize, minFontSize);
+
+    element.style.fontSize = `${finalSize}rem`;
 };

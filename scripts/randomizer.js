@@ -2,9 +2,6 @@ import { state } from "./state.js";
 
 // Função para sortear os números com base na quantidade, mínimo e máximo definidos pelo usuário
 export function generateNumbers(quantity, min, max, unique) {
-
-    state.resultNumbers = [];
-
     if (unique) {
         while (state.resultNumbers.length < quantity) {
             const number = Math.floor(Math.random() * (max - min + 1)) + min;

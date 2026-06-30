@@ -2,6 +2,7 @@ import { state } from "./state.js";
 import { animateAppear, animateLayoutChange } from "./animations.js";
 import { delay } from "./utils.js";
 
+// Captura de todos os elementos da interface
 export const elements = {
     form: document.querySelector("form"),
     inputs: document.querySelectorAll("input[type='text']"),
@@ -21,7 +22,7 @@ export const elements = {
     titleForm: document.querySelector(".title-form"),
     questions: document.querySelector(".questions"),
 }
-
+// Função para iniciar o sorteio dos números
 export async function startTheDraw() {
     // Remove o estado do botão
     state.buttonMode = "";
@@ -29,10 +30,7 @@ export async function startTheDraw() {
 
     // Animação na troca de layout
     animateLayoutChange(elements.form);
-    await delay(500);
-
-    // Incrementa o contador de resultados para apresentar o número do resultado atual
-    state.resultCounter++;
+    await delay(state.layoutChangeDuration / 2);
 
     // Altera o conteúdo dos elementos
     elements.resultTitle.textContent = state.newResultTitle;
@@ -45,21 +43,23 @@ export async function startTheDraw() {
     elements.resultSubtitle.style.textAlign = "center";
     elements.inputsWrapper.style.display = "none";
     elements.result.style.display = "flex";
-
-    // Animação de aparecer o botão de reiniciar o sorteio
     elements.button.style.display = "none";
     elements.buttonGradientBorder.style.opacity = "0";
-    const drawDuration = state.resultNumbers.length * 3000 + 1000;
-    await delay(drawDuration);
-    elements.button.style.display = "flex";
+    
+    // Aplicação de delay conforme o tempo de animação total + tempo de mudança de layout
+    await delay(state.totalAnimationDuration + state.layoutChangeDuration);
+    
+    // Animação de aparecer o botão de reiniciar o sorteio
     animateAppear(elements.buttonGradientBorder);
-    await delay(500);
+    await delay(state.layoutChangeDuration / 2);
+    elements.button.style.display = "flex";
     elements.buttonGradientBorder.style.opacity = "1";
 
     // Adiciona o novo estado do botão
     state.buttonMode = "reset";
-}
+};
 
+// Função para reiniciar o sorteio
 export async function resetTheDraw() {
     // Remove o estado do botão
     state.buttonMode = "";
@@ -67,7 +67,7 @@ export async function resetTheDraw() {
 
     // Animação na troca de layout
     animateLayoutChange(elements.form);
-    await delay(500);
+    await delay(state.layoutChangeDuration / 2);
     
     // Reseta o conteúdo dos elementos
     elements.resultTitle.textContent = state.previousResultTitle;
@@ -86,5 +86,4 @@ export async function resetTheDraw() {
 
     // Adiciona o novo estado do botão
     state.buttonMode = "start";
-}
-
+};

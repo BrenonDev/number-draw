@@ -1,7 +1,8 @@
+// Estado da aplicação
 export const state = {
-    quantity: 1,
-    min: 1,
-    max: 100,
+    quantity: 0,
+    min: 0,
+    max: 0,
     unique: true,
 
     previousResultTitle: "QUERO SORTEAR:",
@@ -17,4 +18,9 @@ export const state = {
     buttonMode: "start",
     resultCounter: 0,
     resultNumbers: [],
+    previousResultNumbers: [],
+
+    layoutChangeDuration: 1000,
+    individualAnimationDuration: 3000,
+    totalAnimationDuration: 0,
 }

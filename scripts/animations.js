@@ -1,4 +1,5 @@
-import { fitNumberFontSize } from "./utils.js";
+import { state } from "./state.js";
+import { delay, fitNumberFontSize } from "./utils.js";
 
 // Função de animação dos números sorteados
 export function animateNumberEntry(text, container) {
@@ -46,10 +47,10 @@ export function animateNumberEntry(text, container) {
             },
         ],
         {
-            duration: 2000,
+            duration: state.individualAnimationDuration * 0.7,
             easing: "linear",
             fill: "forwards",
-            delay: 500,
+            delay: state.layoutChangeDuration / 2,
         }
     );
 
@@ -83,10 +84,10 @@ export function animateNumberEntry(text, container) {
             },
         ],
         {
-            duration: 2000,
+            duration: state.individualAnimationDuration * 0.7,
             easing: "linear",
             fill: "forwards",
-            delay: 500,
+            delay: state.layoutChangeDuration / 2,
         }
     );
 };
@@ -136,7 +137,7 @@ export async function animateItemMovement(container, callback, animatedElements 
                 }
             ],
             {
-                duration: 400,
+                duration: state.layoutChangeDuration / 2.5,
                 easing: "ease",
                 fill: "both",
             }
@@ -169,7 +170,7 @@ export async function animateItemMovement(container, callback, animatedElements 
                 }
             ],
             {
-                duration: 400,
+                duration: state.layoutChangeDuration / 2.5,
                 easing: "ease",
                 fill: "both",
             }
@@ -211,7 +212,7 @@ export async function animateHeightChange(element, callback) {
             }
         ],
         {
-            duration: 400,
+            duration: state.layoutChangeDuration / 2.5,
             easing: "ease",
         }
     );
@@ -243,7 +244,7 @@ export function animateLayoutChange(element) {
             },
         ],
         {
-            duration: 1000,
+            duration: state.layoutChangeDuration,
             easing: "linear",
             fill: "forwards",
         }
@@ -265,9 +266,10 @@ export async function animateAppear(element) {
             },
         ],
         {
-            duration: 1000,
+            duration: state.layoutChangeDuration,
             easing: "ease",
             fill: "backwards",
+            delay: state.layoutChangeDuration / 2,
         }
     );
 };
